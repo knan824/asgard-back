@@ -27,4 +27,9 @@ class Game extends Model
     {
         $this->hasMany(Wishlist::class);
     }
+
+    public function platforms()
+    {
+        $this->hasMany(Platform::class);
+    }
 }
