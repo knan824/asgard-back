@@ -26,7 +26,9 @@ class GameStoreRequest extends FormRequest
             'name' => 'required|string',
             'release_year' => 'required|numeric',
             'developer' => 'required|string',
-            'platform' => 'required|string',
+            'mode' => 'required|string',
+            'is_available' => 'required|boolean',
+            'is_visible' => 'required|boolean',
         ];
     }
 

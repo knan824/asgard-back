@@ -25,7 +25,9 @@ class GameUpdateRequest extends FormRequest
             'name' => 'sometimes|string',
             'release_year' => 'sometimes|numeric',
             'developer' => 'sometimes|string',
-            'platform' => 'sometimes|string',
+            'mode' => 'sometimes|string',
+            'is_available' => 'sometimes|boolean',
+            'is_visible' => 'sometimes|boolean',
         ];
     }
 
