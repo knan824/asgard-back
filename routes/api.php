@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 # website api routes
 Route::group([
-    'namespace' => 'Website',
     'as' => 'website.',
 ], function () {
     if (env('APP_ENV') === 'testing') {
@@ -18,7 +17,6 @@ Route::group([
 
 # admin panel api routes
 Route::group([
-    'namespace' => 'Admin',
     'prefix' => 'admin-panel',
     'as' => 'admin.',
 ], function () {
