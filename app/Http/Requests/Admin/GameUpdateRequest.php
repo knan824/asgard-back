@@ -22,10 +22,12 @@ class GameUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|string',
-            'release_year' => 'sometimes|numeric',
-            'developer' => 'sometimes|string',
-            'mode' => 'sometimes|string',
+            'name' => 'sometimes|string|max:255|min:2',
+            'release_year' => 'sometimes|date|date_format:Y-m-d|after:2014-01-01',
+            'developer' => 'sometimes|string|max:255|min:2',
+            'mode' => 'sometimes|string|max:255|min:2',
+            'platform' => 'sometimes|string|max:255|min:2', //|exists:platforms to be added after merge
+            'price' => 'sometimes|numeric|min:0|max:5000',
             'is_available' => 'sometimes|boolean',
             'is_visible' => 'sometimes|boolean',
         ];
