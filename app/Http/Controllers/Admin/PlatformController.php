@@ -13,10 +13,14 @@ class PlatformController extends Controller
 {
     public function index()
     {
-        $platforms = Platform::paginate();
+        $platforms = Platform::paginate(10); // Paginate results, 10 per page
 
-        return response($platforms);
+        return response([
+            'message' => 'Platforms retrieved successfully',
+            'platforms' => PlatformResource::collection($platforms), // Use the resource for each item
+        ]);
     }
+
 
     public function store(PlatformStoreRequest $request)
     {
