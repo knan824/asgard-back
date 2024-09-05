@@ -14,6 +14,8 @@ class Game extends Model
         'release_year',
         'developer',
         'mode',
+        'price',
+        'platform',
         'is_available',
         'is_visible',
     ];

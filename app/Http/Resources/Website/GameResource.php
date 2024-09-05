@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Admin;
+namespace App\Http\Resources\Website;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -19,13 +19,9 @@ class GameResource extends JsonResource
             'name' => $this->name,
             'release_year' => $this->release_year,
             'developer' => $this->developer,
+            'platform'=>$this->platform,
             'mode' => $this->mode,
             'price' => $this->price,
-            'platform'=>$this->platform,
-            'is_available' => $this->is_available,
-            'is_visible' => $this->is_visible,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

@@ -9,11 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class GameFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
     public function definition(): array
     {
         return [
@@ -21,8 +17,11 @@ class GameFactory extends Factory
             'developer' => fake()->company(),
             'release_year' => fake()->year(),
             'mode' => fake()->word(),
+            'platform' => fake()->word(),
+            'price' => fake()->biasedNumberBetween(),
             'is_available' => fake()->boolean(),
             'is_visible' => fake()->boolean(),
+
         ];
     }
 }
