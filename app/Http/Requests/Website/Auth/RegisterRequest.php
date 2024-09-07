@@ -5,6 +5,7 @@ namespace App\Http\Requests\Website\Auth;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed', Password::defaults()],
         ];
     }
 
@@ -37,6 +38,8 @@ class RegisterRequest extends FormRequest
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
+
+        $this->session()->regenerate();
 
         return [
             'user' => $user,
