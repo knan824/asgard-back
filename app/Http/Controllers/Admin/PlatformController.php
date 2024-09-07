@@ -13,19 +13,13 @@ class PlatformController extends Controller
 {
     public function index()
     {
-        $platforms = Platform::paginate(10); // Paginate results, 10 per page
-
-        return response([
-            'message' => 'Platforms retrieved successfully',
-            'platforms' => PlatformResource::collection($platforms), // Use the resource for each item
-        ]);
+        $platforms = Platform::paginate(10);
+        return PlatformResource::collection($platforms);
     }
-
 
     public function store(PlatformStoreRequest $request)
     {
         $platforms = $request->storePlatform();
-
         return response([
             'message' => 'Platform created successfully',
             'platform' => new PlatformResource($platforms),
@@ -39,11 +33,9 @@ class PlatformController extends Controller
         ]);
     }
 
-
     public function update(PlatformUpdateRequest $request, platform $platform)
     {
         $platform = $request->updatePlatform();
-
         return response([
             'message' => 'Platform updated successfully',
             'platform' => new PlatformResource($platform),
@@ -53,10 +45,8 @@ class PlatformController extends Controller
     public function destroy(Platform $platform)
     {
         $platform->delete();
-
         return response([
             'message' => 'Platform deleted successfully',
         ]);
     }
-
 }

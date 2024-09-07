@@ -9,7 +9,6 @@ class GamePlatform extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'platform_id',
         'user_id',
