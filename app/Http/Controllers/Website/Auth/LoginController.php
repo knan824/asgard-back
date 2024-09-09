@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\Website\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Website\Auth\RegisterRequest;
+use App\Http\Requests\Website\Auth\LoginRequest;
 use App\Http\Resources\Website\UserResource;
 
-class RegisterController extends Controller
+class LoginController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function store(RegisterRequest $request)
+    public function store(LoginRequest $request)
     {
-        $credentials = $request->registerUser();
+        $credentials = $request->loginUser();
 
         return response()->json([
             'token' => $credentials['token'],
