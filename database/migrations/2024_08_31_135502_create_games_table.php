@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('release_year');
             $table->string('developer');
             $table->string('mode');
-            $table->unsignedMediumInteger('price')->default(0);
-            $table->string('platform');
             $table->boolean('is_available')->default(false);
             $table->boolean('is_visible')->default(false);
             $table->timestamps();

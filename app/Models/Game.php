@@ -14,8 +14,6 @@ class Game extends Model
         'release_year',
         'developer',
         'mode',
-        'price',
-        'platform',
         'is_available',
         'is_visible',
     ];
@@ -28,10 +26,5 @@ class Game extends Model
     public function users()
     {
         $this->belongsToMany(User::class);
-    }
-
-    public function wishlist()
-    {
-        $this->hasMany(Wishlist::class);
     }
 }

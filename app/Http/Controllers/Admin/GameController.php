@@ -10,7 +10,6 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
-
     public function index()
     {
         $games = Game::paginate();
@@ -21,19 +20,18 @@ class GameController extends Controller
     public function store(GameStoreRequest $request)
     {
         $game = $request->storeGame();
-        $game->platforms()->attach($request->platform); //attaches the game to it's platform in platform table
 
         return response([
             'message' => 'Game created successfully',
             'game' => new GameResource($game),
-                        ]);
+        ]);
     }
 
     public function show(Game $game)
     {
         return response([
             'game' => new GameResource($game),
-                        ]);
+        ]);
     }
 
     public function update(GameUpdateRequest $request, Game $game)
@@ -43,7 +41,7 @@ class GameController extends Controller
         return response([
             'message' => 'Game updated successfully',
             'game' => new GameResource($game),
-                        ]);
+        ]);
     }
 
     public function destroy(Game $game)
@@ -52,6 +50,6 @@ class GameController extends Controller
 
         return response([
             'message' => 'Game deleted successfully',
-                        ]);
+        ]);
     }
 }
