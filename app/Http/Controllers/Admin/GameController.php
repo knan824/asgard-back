@@ -10,9 +10,6 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $games = Game::paginate();
@@ -20,9 +17,6 @@ class GameController extends Controller
         return response(GameResource::collection($games));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(GameStoreRequest $request)
     {
         $game = $request->storeGame();
@@ -40,9 +34,6 @@ class GameController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(GameUpdateRequest $request, Game $game)
     {
         $game = $request->updateGame();
@@ -53,9 +44,6 @@ class GameController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Game $game)
     {
         $game->delete();

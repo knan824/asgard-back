@@ -23,15 +23,22 @@ class GameStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'release_year' => 'required|numeric',
-            'developer' => 'required|string',
-            'platform' => 'required|string',
+            'name' => 'required|string|max:255|min:2',
+            'release_year' => 'required|date|date_format:Y-m-d|after:2014-01-01',
+            'developer' => 'required|string|max:255|min:2',
+            'mode' => 'required|string|max:255|min:2',
+            'platform' => 'required|array|min:1',
+            'platform.*' => 'integer|exists:platforms,id|required_with:platform',
+            'is_available' => 'required|boolean',
+            'is_visible' => 'required|boolean',
         ];
     }
 
     public function storeGame()
     {
-        return Game::create($this->validated());
+        $game = Game::create($this->validated());
+        $game->platforms()->attach($this->platform);
+
+        return $game;
     }
 }
