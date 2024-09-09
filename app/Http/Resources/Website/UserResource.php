@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'created_at' => $this->created_at,
+            'games' => GameResource::collection($this->games),
             'updated_at' => $this->updated_at,
         ];
     }

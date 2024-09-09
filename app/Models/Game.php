@@ -18,18 +18,13 @@ class Game extends Model
         'is_visible',
     ];
 
+    public function platforms()
+    {
+        return $this->belongsToMany(Platform::class);
+    }
+
     public function users()
     {
         $this->belongsToMany(User::class);
-    }
-
-    public function wishlist()
-    {
-        $this->hasMany(Wishlist::class);
-    }
-
-    public function platforms()
-    {
-        $this->hasMany(Platform::class);
     }
 }

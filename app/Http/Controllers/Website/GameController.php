@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Website\GameResource;
 use App\Models\Game;
-use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $games = Game::paginate();
+        $games = Game::paginate(10);
 
-        return response($games);
+        return response([
+            'games' => GameResource::collection($games),
+        ]);
     }
 
     public function show(Game $game)
     {
-        return response($game);
+        return response([
+            'game' => new GameResource($game),
+        ]);
     }
-
 }
