@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Platform extends Model
 {
-
     use HasFactory;
 
     protected $fillable = [
@@ -18,5 +17,4 @@ class Platform extends Model
     {
         $this->belongsToMany(Game::class);
     }
-
 }

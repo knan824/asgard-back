@@ -8,7 +8,6 @@ use App\Http\Requests\Admin\PlatformUpdateRequest;
 use App\Http\Resources\Admin\PlatformResource;
 use App\Models\Platform;
 
-
 class PlatformController extends Controller
 {
     public function index()
@@ -30,7 +29,6 @@ class PlatformController extends Controller
 
     public function show(Platform $platform)
     {
-
         return response([
             'platform' => new PlatformResource($platform),
         ]);
