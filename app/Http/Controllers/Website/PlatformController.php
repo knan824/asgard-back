@@ -12,11 +12,13 @@ class PlatformController extends Controller
     public function index()
     {
         $platforms = Platform::paginate(10);
+
         return PlatformResource::collection($platforms);
     }
 
     public function show(Platform $platform)
     {
+
         return response([
             'platform' => new PlatformResource($platform),
         ]);

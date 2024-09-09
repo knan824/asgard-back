@@ -35,6 +35,7 @@ class GameController extends Controller
 
     public function show(Game $game)
     {
+
         return response([
             'game' => new GameResource($game),
         ]);
