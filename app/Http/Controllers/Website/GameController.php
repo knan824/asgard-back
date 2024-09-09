@@ -8,9 +8,7 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $games = Game::paginate(10);
@@ -20,18 +18,19 @@ class GameController extends Controller
             'message' => 'Games retrieved successfully',
             'games' => GameResource::collection($games),
             ]
-        );
+                        );
     }
 
 
     public function show(Game $game)
     {
+
         return response(
             [
                 'message' => 'Game retrieved successfully',
                 'game' => new GameResource($game)
             ]
-        );
+                        );
     }
 
 }

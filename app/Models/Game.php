@@ -20,6 +20,11 @@ class Game extends Model
         'is_visible',
     ];
 
+    public function platforms()
+    {
+        return $this->belongsToMany(Platform::class);
+    }
+
     public function users()
     {
         $this->belongsToMany(User::class);

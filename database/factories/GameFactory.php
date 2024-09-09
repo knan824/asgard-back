@@ -22,6 +22,6 @@ class GameFactory extends Factory
             'is_available' => fake()->boolean(),
             'is_visible' => fake()->boolean(),
 
-        ];
+               ];
     }
 }
