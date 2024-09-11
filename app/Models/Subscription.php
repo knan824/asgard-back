@@ -13,7 +13,7 @@ class Subscription extends Model
         'name'
     ];
 
-    public function UserSubscipton()
+    public function users()
     {
         return $this->belongsToMany(UserSubscription::class);
     }

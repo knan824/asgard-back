@@ -22,14 +22,14 @@ class SubscriptionUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|string|max:255|min:2|unique:Subscription,name,id'
+            'name' => 'sometimes|string|max:255|min:2|unique:subscriptions,name,id'
         ];
     }
 
     public function updateSubscription()
     {
-        $this->Subscription->update($this->validated());
+        $this->subscription->update($this->validated());
 
-        return $this->Subscription->refresh();
+        return $this->subscription->refresh();
     }
 }

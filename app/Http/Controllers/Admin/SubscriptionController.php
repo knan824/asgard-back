@@ -37,13 +37,13 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function update(SubscriptionUpdateRequest $request, Subscription $Subscription)
+    public function update(SubscriptionUpdateRequest $request, Subscription $subscription)
     {
         $Subscription = $request->updateSubscription();
 
         return response([
             'message' => 'Subscription updated successfully',
-            'Subscription' => new SubscriptionResource($Subscription),
+            'subscription' => new SubscriptionResource($Subscription),
         ]);
     }
 

@@ -14,18 +14,18 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        $platforms = Subscription::paginate(10);
+        $subscriptions = Subscription::paginate(10);
 
-        return SubscriptionResource::collection($platforms);
+        return SubscriptionResource::collection($subscriptions);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Subscription $Subscription)
+    public function show(Subscription $subscription)
     {
         return response([
-            'Subscription' => new SubscriptionResource($Subscription),
+            'Subscription' => new SubscriptionResource($subscription),
         ]);
     }
 
