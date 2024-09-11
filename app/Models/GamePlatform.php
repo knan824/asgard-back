@@ -13,14 +13,4 @@ class GamePlatform extends Model
         'platform_id',
         'user_id',
     ];
-
-    public function platforms()
-    {
-        $this->hasMany(Platform::class);
-    }
-
-    public function games()
-    {
-        $this->hasMany(Game::class);
-    }
 }

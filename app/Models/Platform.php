@@ -15,6 +15,6 @@ class Platform extends Model
 
     public function games()
     {
-        $this->belongsToMany(GamePlatform::class);
+        $this->belongsToMany(Game::class);
     }
 }

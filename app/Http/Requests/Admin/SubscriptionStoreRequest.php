@@ -22,7 +22,7 @@ class SubscriptionStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|min:2|unique:Subscriptions,name',
+            'name' => 'required|string|max:255|min:2|unique:subscriptions,name',
         ];
     }
 

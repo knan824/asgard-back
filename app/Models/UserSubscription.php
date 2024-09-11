@@ -16,14 +16,4 @@ class UserSubscription extends Model
         'status',
         'expire_at',
     ];
-
-    public function subscriptions()
-    {
-       $this->hasMany(Subscription::class);
-    }
-
-    public function users()
-    {
-        $this->hasMany(User::class);
-    }
 }

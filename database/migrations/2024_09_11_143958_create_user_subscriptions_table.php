@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('subscription_id');
             $table->string('status');
-            $table->dateTime('expire_at');
+            $table->dateTime('expire_at')->nullable();
             $table->timestamps();
         });
     }
