@@ -15,41 +15,41 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        $Subscription = Subscription::paginate(10);
+        $subscription = Subscription::paginate(10);
 
-        return SubscriptionResource::collection($Subscription);
+        return SubscriptionResource::collection($subscription);
     }
 
     public function store(SubscriptionStoreRequest $request)
     {
-        $Subscription = $request->storeSubscription();
+        $subscription = $request->storeSubscription();
 
         return response([
             'message' => 'Subscription created successfully',
-            'Subscription' => new SubscriptionResource($Subscription),
+            'subscription' => new SubscriptionResource($subscription),
         ]);
     }
 
-    public function show(Subscription $Subscription)
+    public function show(Subscription $subscription)
     {
         return response([
-            'Subscription' => new SubscriptionResource($Subscription),
+            'subscription' => new SubscriptionResource($subscription),
         ]);
     }
 
     public function update(SubscriptionUpdateRequest $request, Subscription $subscription)
     {
-        $Subscription = $request->updateSubscription();
+        $subscription = $request->updateSubscription();
 
         return response([
             'message' => 'Subscription updated successfully',
-            'subscription' => new SubscriptionResource($Subscription),
+            'subscription' => new SubscriptionResource($subscription),
         ]);
     }
 
-    public function destroy(Subscription $Subscription)
+    public function destroy(Subscription $subscription)
     {
-        $Subscription->delete();
+        $subscription->delete();
 
         return response([
             'message' => 'Subscription deleted successfully',
