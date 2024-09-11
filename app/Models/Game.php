@@ -20,11 +20,11 @@ class Game extends Model
 
     public function platforms()
     {
-        return $this->belongsToMany(Platform::class);
+        return $this->belongsToMany(GamePlatform::class);
     }
 
-    public function users()
+    public function Users()
     {
-        $this->belongsToMany(User::class);
+        return $this->belongsToMany(UserGame::class);
     }
 }

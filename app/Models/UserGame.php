@@ -13,4 +13,14 @@ class UserGame extends Model
         'game_id',
         'user_id',
     ];
+
+    public function users()
+    {
+        $this->hasMany(User::class);
+    }
+
+    public function games()
+    {
+        $this->hasMany(Game::class);
+    }
 }
