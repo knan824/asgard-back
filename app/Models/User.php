@@ -31,5 +31,10 @@ class User extends Authenticatable
     {
         $this->belongsToMany(UserGame::class);
     }
+
+    public function subscriptions()
+    {
+        $this->belongsToMany(Subscription::class);
+    }
 }
 
