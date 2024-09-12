@@ -15,9 +15,9 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        $subscription = Subscription::paginate(10);
+        $subscriptions = Subscription::paginate(10);
 
-        return SubscriptionResource::collection($subscription);
+        return SubscriptionResource::collection($subscriptions);
     }
 
     public function store(SubscriptionStoreRequest $request)

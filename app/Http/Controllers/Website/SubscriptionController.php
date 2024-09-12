@@ -24,7 +24,7 @@ class SubscriptionController extends Controller
     public function show(Subscription $subscription)
     {
         return response([
-            'Subscription' => new SubscriptionResource($subscription),
+            'subscription' => new SubscriptionResource($subscription),
         ]);
     }
 }
