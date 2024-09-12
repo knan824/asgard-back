@@ -7,4 +7,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('games', GameController::class)->only(['index', 'show']);
 Route::apiResource('platforms', PlatformController::class)->only(['index', 'show']);
-Route::apiResource('Subscriptions', SubscriptionController::class)->only(['index', 'show']);
+Route::apiResource('subscriptions', SubscriptionController::class)->only(['index', 'show']);
