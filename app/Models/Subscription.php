@@ -17,4 +17,9 @@ class Subscription extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function price()
+    {
+        return $this->morphOne(Price::class, 'priceable');
+    }
 }
