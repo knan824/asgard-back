@@ -23,11 +23,15 @@ class SubscriptionStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|min:2|unique:subscriptions,name',
+            'price' => 'required|numeric|min:0',
         ];
     }
 
     public function storeSubscription()
     {
-        return Subscription::create($this->validated());
+        $subscription = Subscription::create($this->validated());
+        $subscription->price()->create(['price' => $this->price]);
+
+        return $subscription;
     }
 }

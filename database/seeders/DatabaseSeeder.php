@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
           UserSeeder::class,
           PlatformSeeder::class,
           SubscriptionSeeder::class,
-          PriceSeeder::class,
         ]);
     }
 }

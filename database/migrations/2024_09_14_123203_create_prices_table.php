@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
+            $table->morphs('priceable');
             $table->integer('price');
-            $table->unsignedBigInteger('priceable_id');
-            $table->string('priceable_type');
             $table->timestamps();
         });
     }

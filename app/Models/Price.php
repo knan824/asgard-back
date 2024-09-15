@@ -11,12 +11,20 @@ class Price extends Model
 
     protected $fillable = [
         'price',
-        'priceable_id',
-        'priceable_type',
     ];
 
     public function priceable()
     {
         return $this->morphTo();
+    }
+
+    public function setPriceAttribute($value)
+    {
+        $this->attributes['price'] = $value * 100;
+    }
+
+    public function getPriceAttribute($value)
+    {
+        return $value / 100;
     }
 }

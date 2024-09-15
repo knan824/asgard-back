@@ -19,15 +19,6 @@ class PriceFactory extends Factory
     {
         return [
             'price' => fake()->numberBetween(1, 1000),
-            'priceable_id' => function () {
-                // Randomly pick a model and return its ID
-                $model = fake()->randomElement([Subscription::class]);
-                return $model::factory()->create()->id;
-            },
-            'priceable_type' => function () {
-                // Return the class name of the randomly picked model
-                return fake()->randomElement([Subscription::class]);
-            },
         ];
     }
 }

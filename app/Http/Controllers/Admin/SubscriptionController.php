@@ -49,7 +49,7 @@ class SubscriptionController extends Controller
 
     public function destroy(Subscription $subscription)
     {
-        $subscription->delete();
+        $subscription->remove();
 
         return response([
             'message' => 'Subscription deleted successfully',

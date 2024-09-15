@@ -22,4 +22,11 @@ class Subscription extends Model
     {
         return $this->morphOne(Price::class, 'priceable');
     }
+
+    public function remove()
+    {
+        $this->price->delete();
+        $this->users()->detach();
+        $this->delete();
+    }
 }
