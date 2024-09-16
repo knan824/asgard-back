@@ -16,6 +16,7 @@ class GameResource extends JsonResource
             'developer' => $this->developer,
             'mode' => $this->mode,
             'platforms' => PlatformResource::collection($this->platforms),
+            'images' => ImageResource::collection($this->images),
             'is_available' => $this->is_available,
             'is_visible' => $this->is_visible,
             'created_at' => $this->created_at,

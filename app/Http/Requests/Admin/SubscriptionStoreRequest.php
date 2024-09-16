@@ -24,6 +24,8 @@ class SubscriptionStoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|min:2|unique:subscriptions,name',
             'price' => 'required|numeric|min:0',
+            'images' => 'required|array|min:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -31,7 +33,18 @@ class SubscriptionStoreRequest extends FormRequest
     {
         $subscription = Subscription::create($this->validated());
         $subscription->price()->create(['price' => $this->price]);
+        foreach ($this->images as $image) {
+            $path = $image->store('games');
+            $subscription->images()->create([
+                'path' => $path,
+                'is_main' => $image['is_main'] ?? false,
+                'extension' => $image->extension(),
+                'size' => $image->getSize(),
+                'type' => 'photo',
+            ]);
+        }
 
         return $subscription;
+
     }
 }

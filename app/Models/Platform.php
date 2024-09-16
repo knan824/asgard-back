@@ -17,4 +17,14 @@ class Platform extends Model
     {
         $this->belongsToMany(Game::class);
     }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'mediaable');
+    }
+    public function remove()
+    {
+        $this->images()->delete();
+        $this->delete();
+    }
 }

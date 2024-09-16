@@ -24,6 +24,8 @@ class SubscriptionUpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|string|max:255|min:2|unique:subscriptions,name,' . $this->subscription->id,
             'price' => 'sometimes|numeric|min:0',
+            'images' => 'nullable|array|min:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -31,6 +33,19 @@ class SubscriptionUpdateRequest extends FormRequest
     {
         $this->subscription->update($this->validated());
         $this->subscription->price->update(['price' => $this->price]);
+
+        if ($this->hasFile('images')) {
+            foreach ($this->file('images') as $imageFile) {
+                $path = $imageFile->store('games'); //keeps current images
+                $this->game->images()->create([
+                    'path' => $path,
+                    'is_main' => $this->input('is_main', false),
+                    'extension' => $imageFile->extension(),
+                    'size' => $imageFile->getSize(),
+                    'type' => 'photo',
+                ]);
+            }
+        }
 
         return $this->subscription->refresh();
     }

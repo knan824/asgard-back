@@ -36,5 +36,10 @@ class User extends Authenticatable
     {
         $this->belongsToMany(Subscription::class);
     }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'mediaable');
+    }
 }
 

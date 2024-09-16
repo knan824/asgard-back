@@ -29,6 +29,8 @@ class GameStoreRequest extends FormRequest
             'mode' => 'required|string|max:255|min:2',
             'platform' => 'required|array|min:1',
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
+            'images' => 'required|array|min:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_available' => 'required|boolean',
             'is_visible' => 'required|boolean',
         ];
@@ -38,6 +40,16 @@ class GameStoreRequest extends FormRequest
     {
         $game = Game::create($this->validated());
         $game->platforms()->attach($this->platform);
+        foreach ($this -> images as $image){
+            $path = $image -> store ('games');
+            $game -> images()->create([
+               'path' => $path,
+               'is_main' => $image['is_main'] ?? false,
+               'extension' => $image-> extension(),
+               'size' => $image -> getSize(),
+               'type' => 'photo',
+            ]);
+        }
 
         return $game;
     }

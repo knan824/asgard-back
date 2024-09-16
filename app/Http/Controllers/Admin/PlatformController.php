@@ -46,7 +46,7 @@ class PlatformController extends Controller
 
     public function destroy(Platform $platform)
     {
-        $platform->delete();
+        $platform->remove();
 
         return response([
             'message' => 'Platform deleted successfully',

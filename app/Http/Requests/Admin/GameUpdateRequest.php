@@ -20,6 +20,8 @@ class GameUpdateRequest extends FormRequest
             'mode' => 'sometimes|string|max:255|min:2',
             'platform' => 'sometimes|array|min:1',
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
+            'images' => 'nullable|array|min:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_available' => 'sometimes|boolean',
             'is_visible' => 'sometimes|boolean',
         ];
@@ -30,6 +32,18 @@ class GameUpdateRequest extends FormRequest
         $this->game->update($this->validated());
         $this->game->platforms()->sync($this->platform);
 
+        if ($this->hasFile('images')) {
+            foreach ($this->file('images') as $imageFile) {
+                $path = $imageFile->store('games'); //keeps current images
+                $this->game->images()->create([
+                    'path' => $path,
+                    'is_main' => $this->input('is_main', false),
+                    'extension' => $imageFile->extension(),
+                    'size' => $imageFile->getSize(),
+                    'type' => 'photo',
+                ]);
+            }
+        }
         return $this->game->refresh();
     }
 }

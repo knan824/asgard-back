@@ -47,7 +47,7 @@ class GameController extends Controller
 
     public function destroy(Game $game)
     {
-        $game->delete();
+        $game->remove();
 
         return response([
             'message' => 'Game deleted successfully',
