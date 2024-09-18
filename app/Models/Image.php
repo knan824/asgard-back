@@ -9,10 +9,19 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['path', 'is_main', 'extension', 'size', 'type'];
+    protected $fillable = [
+        'path',
+        'is_main',
+        'extension',
+        'size',
+        'type'
+    ];
 
+    protected $casts = [
+        'is_main' => 'boolean'
+    ];
 
-    public function mediaable()
+    public function mediable()
     {
         return $this->morphTo();
     }

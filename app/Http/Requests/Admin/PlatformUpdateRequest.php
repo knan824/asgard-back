@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PlatformUpdateRequest extends FormRequest
 {
@@ -15,8 +16,7 @@ class PlatformUpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string|max:255|min:2|unique:platforms,name,id',
-            'images' => 'sometimes|array|min:1',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -24,17 +24,18 @@ class PlatformUpdateRequest extends FormRequest
     {
         $this->platform->update($this->validated());
 
-        if ($this->hasFile('images')) {
-            foreach ($this->file('images') as $imageFile) {
-                $path = $imageFile->store('games'); //keeps current images
-                $this->game->images()->create([
-                    'path' => $path,
-                    'is_main' => $this->input('is_main', false),
-                    'extension' => $imageFile->extension(),
-                    'size' => $imageFile->getSize(),
-                    'type' => 'photo',
-                ]);
-            }
+        if ($this->exists('image')) {
+            Storage::delete($this->platform->image->path);
+            $this->platform->image()->delete();
+
+            $path = $this->image->store('platforms');
+            $this->platform->image()->create([
+                'path' => $path,
+                'is_main' => true,
+                'extension' => $this->image->extension(),
+                'size' => $this->image->getSize(),
+                'type' => 'photo',
+            ]);
         }
 
         return $this->platform->refresh();

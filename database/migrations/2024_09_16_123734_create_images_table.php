@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images', function (Blueprint $table) {
+            $table->id();
+            $table->morphs('mediable');
             $table->string('path');
             $table->boolean('is_main')->default(false);
             $table->string('extension');
             $table->integer('size');
             $table->string('type');
-            $table->morphs('mediaable');
             $table->timestamps();
         });
     }

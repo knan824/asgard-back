@@ -18,13 +18,14 @@ class Platform extends Model
         $this->belongsToMany(Game::class);
     }
 
-    public function images()
+    public function image()
     {
-        return $this->morphMany(Image::class, 'mediaable');
+        return $this->morphOne(Image::class, 'mediable');
     }
+
     public function remove()
     {
-        $this->images()->delete();
+        $this->image()->delete();
         $this->delete();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class SubscriptionUpdateRequest extends FormRequest
 {
@@ -24,8 +25,7 @@ class SubscriptionUpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|string|max:255|min:2|unique:subscriptions,name,' . $this->subscription->id,
             'price' => 'sometimes|numeric|min:0',
-            'images' => 'nullable|array|min:1',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
@@ -34,17 +34,18 @@ class SubscriptionUpdateRequest extends FormRequest
         $this->subscription->update($this->validated());
         $this->subscription->price->update(['price' => $this->price]);
 
-        if ($this->hasFile('images')) {
-            foreach ($this->file('images') as $imageFile) {
-                $path = $imageFile->store('games'); //keeps current images
-                $this->game->images()->create([
-                    'path' => $path,
-                    'is_main' => $this->input('is_main', false),
-                    'extension' => $imageFile->extension(),
-                    'size' => $imageFile->getSize(),
-                    'type' => 'photo',
-                ]);
-            }
+        if ($this->exists('image')) {
+            Storage::delete($this->subscription->image->path);
+            $this->subscription->image()->delete();
+
+            $path = $this->image->store('subscriptions');
+            $this->subscription->image()->update([
+                'path' => $path,
+                'is_main' => true,
+                'extension' => $this->image->extension(),
+                'size' => $this->image->getSize(),
+                'type' => 'photo',
+            ]);
         }
 
         return $this->subscription->refresh();

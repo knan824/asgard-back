@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function images()
     {
-        return $this->morphMany(Image::class, 'mediaable');
+        return $this->morphMany(Image::class, 'mediable');
     }
 }
 

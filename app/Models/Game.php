@@ -30,7 +30,7 @@ class Game extends Model
 
     public function images()
     {
-        return $this->morphMany(Image::class, 'mediaable');
+        return $this->morphMany(Image::class, 'mediable');
     }
 
     public function remove()
