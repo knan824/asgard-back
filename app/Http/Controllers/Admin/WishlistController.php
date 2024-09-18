@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Resources\Admin\WishlistResource;
+use App\Models\User;
+use App\Models\Wishlist;
 
 class WishlistController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
-        //
+        $wishlist = $user->wishlists()->paginate(10);
+
+        return WishlistResource::collection($wishlist);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user, Wishlist $wishlist)
     {
-        //
+        return response([
+            'wishlist' => new WishlistResource($wishlist),
+        ]);
     }
 }

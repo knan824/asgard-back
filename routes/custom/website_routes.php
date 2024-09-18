@@ -9,4 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('games', GameController::class)->only(['index', 'show']);
 Route::apiResource('platforms', PlatformController::class)->only(['index', 'show']);
 Route::apiResource('subscriptions', SubscriptionController::class)->only(['index', 'show']);
-Route::apiResource('users.wishlist', WishlistController::class)->only(['index', 'store', 'destroy']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('wishlists', WishlistController::class)->only(['index', 'store', 'destroy']);
+});

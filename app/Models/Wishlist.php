@@ -14,13 +14,18 @@ class Wishlist extends Model
         'user_id',
     ];
 
-    public function games()
+    public function game()
     {
-        $this->belongsToMany(Game::class);
+        return $this->belongsTo(Game::class);
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function remove()
+    {
+        $this->delete();
     }
 }
