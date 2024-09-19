@@ -18,6 +18,7 @@ class GameSimpleResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'platforms' => PlatformResource::collection($this->platforms),
+            'is_available' => $this->is_available,
         ];
     }
 }
