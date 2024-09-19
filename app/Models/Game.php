@@ -27,4 +27,9 @@ class Game extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }
