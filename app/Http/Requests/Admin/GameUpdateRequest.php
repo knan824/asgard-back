@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Rules\OneMainImage;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class GameUpdateRequest extends FormRequest
 {
@@ -20,6 +22,9 @@ class GameUpdateRequest extends FormRequest
             'mode' => 'sometimes|string|max:255|min:2',
             'platform' => 'sometimes|array|min:1',
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
+            'images' => ['sometimes', 'array', 'min:1', new OneMainImage],
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'images.*.is_main' => 'sometimes|boolean',
             'is_available' => 'sometimes|boolean',
             'is_visible' => 'sometimes|boolean',
         ];
@@ -29,6 +34,25 @@ class GameUpdateRequest extends FormRequest
     {
         $this->game->update($this->validated());
         $this->game->platforms()->sync($this->platform);
+
+        if ($this->exists('images')) {
+            if ($this->game->images->count() > 0) {
+                foreach($this->game->images as $image) {
+                    Storage::delete($image->path);
+                }
+                $this->game->images()->delete();
+            }
+            foreach ($this->images as $imageFile) {
+                $path = $imageFile->store('games');
+                $this->game->images()->create([
+                    'path' => $path,
+                    'is_main' => $this->$imageFile['is_main'] ?? false,
+                    'extension' => $imageFile->extension(),
+                    'size' => $imageFile->getSize(),
+                    'type' => 'photo',
+                ]);
+            }
+        }
 
         return $this->game->refresh();
     }

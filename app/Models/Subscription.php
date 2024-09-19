@@ -23,10 +23,16 @@ class Subscription extends Model
         return $this->morphOne(Price::class, 'priceable');
     }
 
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'mediable');
+    }
+
     public function remove()
     {
         $this->price->delete();
         $this->users()->detach();
+        $this->image()->delete();
         $this->delete();
     }
 }

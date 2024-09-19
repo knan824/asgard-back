@@ -16,11 +16,23 @@ class PlatformStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|min:2|unique:platforms,name',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
     public function storePlatform()
     {
-        return Platform::create($this->validated());
+       $platform = Platform::create($this->validated());
+       $path = $this->image->store('platforms');
+
+        $platform->image()->create([
+            'path' => $path,
+            'is_main' => true,
+            'extension' => $this->image->extension(),
+            'size' => $this->image->getSize(),
+            'type' => 'photo',
+        ]);
+
+       return $platform;
     }
 }
