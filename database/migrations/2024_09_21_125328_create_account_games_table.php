@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('account_games', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('game_id');
             $table->timestamps();
         });

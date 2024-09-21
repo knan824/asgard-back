@@ -13,7 +13,7 @@ class Account extends Model
         'psn_email',
         'password',
         'platform_type',
-        'sold_status',
+        'is_sold',
         'is_blocked',
     ];
 

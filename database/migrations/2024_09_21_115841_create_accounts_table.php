@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('psn_email');
             $table->string('password');
             $table->string('platform_type');
-            $table->boolean('sold_status');
+            $table->boolean('is_sold');
             $table->boolean('is_blocked');
             $table->timestamps();
         });
