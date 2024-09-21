@@ -19,7 +19,8 @@ class GameUpdateRequest extends FormRequest
             'name' => 'sometimes|string|max:255|min:2',
             'release_year' => 'sometimes|date|date_format:Y-m-d|after:2014-01-01',
             'developer' => 'sometimes|string|max:255|min:2',
-            'mode' => 'sometimes|string|max:255|min:2',
+            'mode' => 'sometimes|array|min:1',
+            'mode.*' => 'integer|exists:modes,id|required_with:mode',
             'platform' => 'sometimes|array|min:1',
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
             'images' => ['sometimes', 'array', 'min:1', new OneMainImage],
@@ -34,6 +35,7 @@ class GameUpdateRequest extends FormRequest
     {
         $this->game->update($this->validated());
         $this->game->platforms()->sync($this->platform);
+        $this->game->modes()->sync($this->mode);
 
         if ($this->exists('images')) {
             if ($this->game->images->count() > 0) {

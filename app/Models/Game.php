@@ -13,7 +13,6 @@ class Game extends Model
         'name',
         'release_year',
         'developer',
-        'mode',
         'is_available',
         'is_visible',
     ];
@@ -26,6 +25,11 @@ class Game extends Model
     public function platforms()
     {
         return $this->belongsToMany(Platform::class);
+    }
+
+    public function modes()
+    {
+        return $this->belongsToMany(Mode::class);
     }
 
     public function users()
