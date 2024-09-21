@@ -19,6 +19,7 @@ class GameSimpleResource extends JsonResource
             'name' => $this->name,
             'image' => ImageResource::make($this->MainImage),
             'platforms' => PlatformResource::collection($this->platforms),
+            'modes' => ModeResource::collection($this->modes),
         ];
     }
 }

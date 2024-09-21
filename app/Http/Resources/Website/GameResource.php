@@ -17,7 +17,7 @@ class GameResource extends JsonResource
             'developer' => $this->developer,
             'images' => ImageResource::collection($this->images),
             'platforms' => PlatformResource::collection($this->platforms),
-            'mode' => $this->mode,
+            'modes' => ModeResource::collection($this->modes),
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Resources\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GameSimpleResource extends JsonResource
+class ModeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,8 @@ class GameSimpleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => ImageResource::make($this->MainImage),
-            'platforms' => PlatformResource::collection($this->platforms),
-            'modes' => ModeResource::collection($this->modes),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
