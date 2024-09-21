@@ -17,11 +17,11 @@ class AccountResource extends JsonResource
         return [
             'id' => $this->id,
             'psn_email' => $this->psn_email,
-            'platform_type' => $this->platfrom_type,
+//            'platform_type' => $this->platfrom_type,
             'price' => $this->price->price,
             'is_sold' => $this->is_sold,
             'is_blocked' => $this->is_blocked,
-            'platforms' => PlatformResource::collection($this->platforms),
+            'platform_type' => PlatformResource::collection($this->platform_type),
             'images' => ImageResource::collection($this->images),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

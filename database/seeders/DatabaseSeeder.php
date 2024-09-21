@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             PlatformSeeder::class,
             GameSeeder::class,
             WishlistSeeder::class,
+            AccountSeeder::class,
         ]);
     }
 }
