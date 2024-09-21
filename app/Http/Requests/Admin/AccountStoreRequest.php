@@ -28,6 +28,7 @@ class AccountStoreRequest extends FormRequest
             'password' => 'required|string|min:8|max:255|regex:/[a-zA-Z]/|regex:/[0-9]/|confirmed',
             'platform' => 'required|array|min:1',
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
+            'price' => 'required|numeric|min:0',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'is_sold' => 'required|boolean',
             'is_blocked' => 'required|boolean',
@@ -38,10 +39,11 @@ class AccountStoreRequest extends FormRequest
     {
         $account = Account::create($this->validated());
         $account->platforms()->attach($this->platform);
+        $account->price()->create(['price' => $this->price]);
 
-        foreach ($this->images as $imageData) {
+        foreach ($this->image as $imageData) {
             $path = $imageData['image']->store('accounts');
-            $account->images()->create([
+            $account->image()->create([
                 'path' => $path,
                 'is_main' => $imageData['is_main'],
                 'extension' => $imageData['image']->extension(),
