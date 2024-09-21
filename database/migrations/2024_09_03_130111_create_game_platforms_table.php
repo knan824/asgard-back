@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('game_platform', function (Blueprint $table) {
             $table->id();
-            $table->unsignedMediumInteger('platform_id');
             $table->unsignedMediumInteger('game_id');
+            $table->unsignedMediumInteger('platform_id');
             $table->timestamps();
         });
     }

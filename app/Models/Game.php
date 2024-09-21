@@ -28,7 +28,6 @@ class Game extends Model
         return $this->belongsToMany(User::class);
     }
 
-
     public function images()
     {
         return $this->morphMany(Image::class, 'mediable');
@@ -36,7 +35,6 @@ class Game extends Model
 
     public function remove()
     {
-        $this->price->delete();
         $this->users()->detach();
         $this->images()->delete();
         $this->delete();
