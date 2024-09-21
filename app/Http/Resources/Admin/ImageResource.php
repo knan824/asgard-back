@@ -21,6 +21,8 @@ class ImageResource extends JsonResource
             'extension' => $this->extension,
             'size' => $this->size,
             'type' => $this->type,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

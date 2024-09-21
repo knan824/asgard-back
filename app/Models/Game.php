@@ -18,6 +18,11 @@ class Game extends Model
         'is_visible',
     ];
 
+    protected $casts = [
+        'is_available' => 'boolean',
+        'is_visible' => 'boolean',
+    ];
+
     public function platforms()
     {
         return $this->belongsToMany(Platform::class);
@@ -33,15 +38,21 @@ class Game extends Model
         return $this->morphMany(Image::class, 'mediable');
     }
 
-    public function remove()
-    {
-        $this->users()->detach();
-        $this->images()->delete();
-        $this->delete();
-    }
-
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function getMainImageAttribute()
+    {
+        return $this->images()->where('is_main', true)->first();
+    }
+
+    public function remove()
+    {
+        $this->users()->detach();
+        $this->wishlists()->delete();
+        $this->images()->delete();
+        $this->delete();
     }
 }

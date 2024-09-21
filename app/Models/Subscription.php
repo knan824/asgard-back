@@ -30,9 +30,13 @@ class Subscription extends Model
 
     public function remove()
     {
-        $this->price->delete();
+        if($this->users()->count()) {
+            return false;
+        }
+
+        $this->price()->delete();
         $this->users()->detach();
         $this->image()->delete();
-        $this->delete();
+        return $this->delete();
     }
 }

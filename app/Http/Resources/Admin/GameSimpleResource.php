@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Admin;
 
-use App\Http\Resources\Website\PlatformResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +17,7 @@ class GameSimpleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => ImageResource::make($this->MainImage),
             'platforms' => PlatformResource::collection($this->platforms),
         ];
     }

@@ -19,6 +19,7 @@ class WishlistResource extends JsonResource
             'user' => $this->user->name,
             'game' => GameSimpleResource::make($this->game),
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
