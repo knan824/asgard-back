@@ -28,10 +28,19 @@ class Game extends Model
         return $this->belongsToMany(User::class);
     }
 
-
     public function images()
     {
         return $this->morphMany(Image::class, 'mediable');
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function accounts()
+    {
+        return $this->belongsToMany(Account::class);
     }
 
     public function remove()
@@ -40,10 +49,5 @@ class Game extends Model
         $this->users()->detach();
         $this->images()->delete();
         $this->delete();
-    }
-
-    public function wishlists()
-    {
-        return $this->hasMany(Wishlist::class);
     }
 }
