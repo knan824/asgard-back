@@ -25,6 +25,7 @@ class AccountFactory extends Factory
             'password' => fake()->password(),
             'is_sold' => fake()->boolean(),
             'is_blocked' => fake()->boolean(),
+            'is_primary' => fake()->boolean(),
         ];
     }
 }
