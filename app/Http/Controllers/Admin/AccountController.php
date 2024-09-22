@@ -29,7 +29,7 @@ class AccountController extends Controller
 
         return response([
             'message' => 'account created successfully',
-            'account' => new accountResource($account),
+            'account' => new AccountResource($account),
         ]);
     }
 
@@ -46,7 +46,7 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AccountUpdateRequest $request, account $account)
+    public function update(AccountUpdateRequest $request, Account $account)
     {
         $account = $request->updateAccount();
 

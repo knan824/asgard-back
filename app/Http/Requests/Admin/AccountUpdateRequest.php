@@ -23,7 +23,7 @@ class AccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,email',
+            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,email,'. $this->email->id,
             'password' => 'sometimes|string|min:8|max:255|regex:/[a-zA-Z]/|regex:/[0-9]/|confirmed',
             'platform' => 'sometimes|array|min:1',
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',

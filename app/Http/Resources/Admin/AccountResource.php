@@ -17,8 +17,7 @@ class AccountResource extends JsonResource
         return [
             'id' => $this->id,
             'psn_email' => $this->psn_email,
-//            'platform_type' => $this->platfrom_type,
-            'price' => $this->price->price,
+            'price' => $this->price()->price,
             'is_sold' => $this->is_sold,
             'is_blocked' => $this->is_blocked,
             'platform_type' => PlatformResource::collection($this->platform_type),

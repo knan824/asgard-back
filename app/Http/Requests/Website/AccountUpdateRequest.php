@@ -29,7 +29,6 @@ class AccountUpdateRequest extends FormRequest
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
             'price' => 'sometimes|numeric|min:0',
-            'is_sold' => 'sometimes|boolean',
         ];
     }
 

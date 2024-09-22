@@ -29,7 +29,7 @@ class AccountController extends Controller
 
         return response([
             'message' => 'account created successfully',
-            'account' => new accountResource($account),
+            'account' => new AccountResource($account),
         ]);
     }
 
@@ -38,6 +38,10 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
+        if ($account->user_id !== auth()->id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         return response([
             'account' => new AccountResource($account),
         ]);
@@ -48,6 +52,10 @@ class AccountController extends Controller
      */
     public function update(AccountUpdateRequest $request, account $account)
     {
+        if ($account->user_id !== auth()->id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
         $account = $request->updateAccount();
 
         return response([
