@@ -12,9 +12,10 @@ Route::apiResource('games', GameController::class)->only(['index', 'show']);
 Route::apiResource('platforms', PlatformController::class)->only(['index', 'show']);
 Route::apiResource('subscriptions', SubscriptionController::class)->only(['index', 'show']);
 Route::apiResource('modes', ModeController::class);
+Route::apiResource('accounts', AccountController::class);
+
 
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('wishlists', WishlistController::class)->only(['index', 'store', 'destroy']);
-    Route::apiResource('accounts', AccountController::class);
 });
