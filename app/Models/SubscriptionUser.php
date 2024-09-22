@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserGame extends Model
+class SubscriptionUser extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'game_id',
         'user_id',
+        'subscription_id',
+        'is_yearly',
+        'status',
+        'expire_at',
     ];
 }
