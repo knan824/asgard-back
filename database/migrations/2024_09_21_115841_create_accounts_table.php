@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('is_sold');
             $table->boolean('is_blocked');
+            $table->boolean('is_primary');
             $table->timestamps();
         });
     }

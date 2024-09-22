@@ -17,9 +17,10 @@ class AccountResource extends JsonResource
         return [
             'id' => $this->id,
             'psn_email' => $this->psn_email,
-            'price' => $this->price->price,
+            'price' => PriceResource::collection($this->price),
             'is_sold' => $this->is_sold,
             'is_blocked' => $this->is_blocked,
+            'is_primary' => $this->is_primary,
             'games' => GameResource::collection($this->games),
             'platforms' => PlatformResource::collection($this->platforms),
             'images' => ImageResource::collection($this->images),

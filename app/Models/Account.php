@@ -15,6 +15,7 @@ class Account extends Model
         'platform_type',
         'is_sold',
         'is_blocked',
+        'is_primary',
     ];
 
     public function user()
