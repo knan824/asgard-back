@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             SubscriptionSeeder::class,
             UserSeeder::class,
             PlatformSeeder::class,
+            ModeSeeder::class,
             GameSeeder::class,
             WishlistSeeder::class,
             AccountSeeder::class,

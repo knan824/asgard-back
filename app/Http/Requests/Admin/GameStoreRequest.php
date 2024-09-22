@@ -27,7 +27,8 @@ class GameStoreRequest extends FormRequest
             'name' => 'required|string|max:255|min:2',
             'release_year' => 'required|date|date_format:Y-m-d|after:2014-01-01',
             'developer' => 'required|string|max:255|min:2',
-            'mode' => 'required|string|max:255|min:2',
+            'mode' => 'required|array|min:1',
+            'mode.*' => 'integer|exists:modes,id|required_with:mode',
             'platform' => 'required|array|min:1',
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
             'images' => ['required', 'array', 'min:1', new OneMainImage],
@@ -42,6 +43,7 @@ class GameStoreRequest extends FormRequest
     {
         $game = Game::create($this->validated());
         $game->platforms()->attach($this->platform);
+        $game->modes()->attach($this->mode);
 
         foreach ($this->images as $imageData) {
             $path = $imageData['image']->store('games');

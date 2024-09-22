@@ -18,15 +18,26 @@ class Game extends Model
         'is_visible',
     ];
 
+    protected $casts = [
+        'is_available' => 'boolean',
+        'is_visible' => 'boolean',
+    ];
+
     public function platforms()
     {
         return $this->belongsToMany(Platform::class);
+    }
+
+    public function modes()
+    {
+        return $this->belongsToMany(Mode::class);
     }
 
     public function users()
     {
         return $this->belongsToMany(User::class);
     }
+
 
     public function images()
     {
@@ -43,10 +54,16 @@ class Game extends Model
         return $this->belongsToMany(Account::class);
     }
 
+    public function getMainImageAttribute()
+    {
+        return $this->images()->where('is_main', true)->first();
+    }
+
     public function remove()
     {
         $this->price->delete();
         $this->users()->detach();
+        $this->wishlists()->delete();
         $this->images()->delete();
         $this->delete();
     }

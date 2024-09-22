@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Website;
 
+use App\Http\Resources\Admin\ImageResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,8 +15,9 @@ class GameResource extends JsonResource
             'name' => $this->name,
             'release_year' => $this->release_year,
             'developer' => $this->developer,
+            'images' => ImageResource::collection($this->images),
             'platforms' => PlatformResource::collection($this->platforms),
-            'mode' => $this->mode,
+            'modes' => ModeResource::collection($this->modes),
         ];
     }
 }

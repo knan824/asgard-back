@@ -15,7 +15,6 @@ class GameFactory extends Factory
             'name' => fake()->name(),
             'developer' => fake()->company(),
             'release_year' => fake()->year(),
-            'mode' => fake()->word(),
             'is_available' => fake()->boolean(),
             'is_visible' => fake()->boolean(),
         ];
