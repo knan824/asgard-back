@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\PlatformFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PlatformStoreRequest;
 use App\Http\Requests\Admin\PlatformUpdateRequest;
@@ -10,11 +11,11 @@ use App\Models\Platform;
 
 class PlatformController extends Controller
 {
-    public function index()
+    public function index(PlatformFilter $filter)
     {
-        $platforms = Platform::paginate(10);
+        $platforms = Platform::filter($filter)->paginate();
 
-        return PlatformResource::collection($platforms);
+        return response(PlatformResource::collection($platforms));
     }
 
     public function store(PlatformStoreRequest $request)

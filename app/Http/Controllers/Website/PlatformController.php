@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Filters\PlatformFilter;
 use App\Http\Controllers\Controller;
 use App\Models\Platform;
 use App\Http\Resources\Website\PlatformResource;
 
 class PlatformController extends Controller
 {
-    public function index()
+    public function index(PlatformFilter $filter)
     {
-        $platforms = Platform::paginate(10);
+        $platforms = Platform::filter($filter)->paginate();
 
-        return PlatformResource::collection($platforms);
+        return response(PlatformResource::collection($platforms));
     }
 
     public function show(Platform $platform)
