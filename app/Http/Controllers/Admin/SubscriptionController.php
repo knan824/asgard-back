@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\SubscriptionFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SubscriptionStoreRequest;
 use App\Http\Requests\Admin\SubscriptionUpdateRequest;
@@ -13,11 +14,11 @@ class SubscriptionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SubscriptionFilter $filter)
     {
-        $subscriptions = Subscription::paginate(10);
+        $subscriptions = Subscription::filter($filter)->paginate();
 
-        return SubscriptionResource::collection($subscriptions);
+        return response(SubscriptionResource::collection($subscriptions));
     }
 
     public function store(SubscriptionStoreRequest $request)
