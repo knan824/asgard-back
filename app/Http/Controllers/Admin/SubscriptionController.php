@@ -49,7 +49,11 @@ class SubscriptionController extends Controller
 
     public function destroy(Subscription $subscription)
     {
-        $subscription->remove();
+        if (! $subscription->delete()) {
+            return response([
+                'message' => 'Subscription could not be deleted as users are subscribed to it',
+            ], 500);
+        }
 
         return response([
             'message' => 'Subscription deleted successfully',

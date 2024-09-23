@@ -19,6 +19,7 @@ class SubscriptionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price->price,
+            'image' => ImageResource::make($this->image),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
