@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Filters\WishlistFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\WishlistStoreRequest;
 use App\Http\Resources\Website\WishlistResource;
-use App\Models\User;
+use App\Models\User; //why is user imported here?
 use App\Models\Wishlist;
 
 class WishlistController extends Controller
@@ -13,11 +14,11 @@ class WishlistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(WishlistFilter $filter)
     {
-        $wishlist = auth()->user()->wishlists()->paginate(10);
+        $wishlists = Wishlist::filter($filter)->paginate();
 
-        return WishlistResource::collection($wishlist);
+        return response(WishlistResource::collection($wishlists));
     }
 
     /**

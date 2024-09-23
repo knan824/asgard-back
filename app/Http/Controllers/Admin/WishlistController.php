@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\WishlistFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\WishlistResource;
 use App\Models\User;
@@ -12,11 +13,11 @@ class WishlistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(User $user)
+    public function index(WishlistFilter $filter)
     {
-        $wishlist = $user->wishlists()->paginate(10);
+        $wishlists = Wishlist::filter($filter)->paginate();
 
-        return WishlistResource::collection($wishlist);
+        return response(WishlistResource::collection($wishlists));
     }
 
     /**

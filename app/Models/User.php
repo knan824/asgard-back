@@ -29,12 +29,12 @@ class User extends Authenticatable
 
     public function games()
     {
-        return $this->belongsToMany(Game::class, 'user_game');
+        return $this->belongsToMany(Game::class);
     }
 
     public function subscriptions()
     {
-        return $this->belongsToMany(Subscription::class, 'user_subscription');
+        return $this->belongsToMany(Subscription::class);
     }
 
     public function wishlists()
