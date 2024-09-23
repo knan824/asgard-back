@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Filters\WishlistFilter;
+use App\Filters\Admin\WishlistFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\WishlistResource;
 use App\Models\User;

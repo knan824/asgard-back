@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filters;
+namespace App\Filters\Admin;
 
 class GameFilter extends QueryFilter
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Filters\PlatformFilter;
+use App\Filters\Admin\PlatformFilter;
 use App\Http\Controllers\Controller;
-use App\Models\Platform;
 use App\Http\Resources\Website\PlatformResource;
+use App\Models\Platform;
 
 class PlatformController extends Controller
 {

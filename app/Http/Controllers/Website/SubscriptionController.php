@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Filters\SubscriptionFilter;
+use App\Filters\Admin\SubscriptionFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Website\SubscriptionResource;
 use App\Models\Subscription;

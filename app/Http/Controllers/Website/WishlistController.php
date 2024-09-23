@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Filters\WishlistFilter;
+use App\Filters\Admin\WishlistFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\WishlistStoreRequest;
 use App\Http\Resources\Website\WishlistResource;
-use App\Models\User; //why is user imported here?
 use App\Models\Wishlist;
+
+//why is user imported here?
 
 class WishlistController extends Controller
 {

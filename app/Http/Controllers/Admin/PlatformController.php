@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Filters\PlatformFilter;
+use App\Filters\Admin\PlatformFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PlatformStoreRequest;
 use App\Http\Requests\Admin\PlatformUpdateRequest;

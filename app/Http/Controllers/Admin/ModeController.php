@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Filters\ModeFilter;
+use App\Filters\Admin\ModeFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ModeStoreRequest;
 use App\Http\Requests\Admin\ModeUpdateRequest;

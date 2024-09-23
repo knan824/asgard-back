@@ -14,7 +14,6 @@ class Game extends Model
         'name',
         'release_year',
         'developer',
-        'mode',
         'is_available',
         'is_visible',
     ];
@@ -58,6 +57,11 @@ class Game extends Model
     public function scopeVisible($query, bool $state = true)
     {
         return $query->where('is_visible', $state);
+    }
+
+    public function scopeAvailable($query, bool $state = true)
+    {
+        return $query->where('is_available', $state);
     }
 
     public function remove()

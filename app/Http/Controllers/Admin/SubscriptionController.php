@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Filters\SubscriptionFilter;
+use App\Filters\Admin\SubscriptionFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SubscriptionStoreRequest;
 use App\Http\Requests\Admin\SubscriptionUpdateRequest;

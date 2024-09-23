@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filters;
+namespace App\Filters\Admin;
 
 class WishlistFilter extends QueryFilter
 {
     public function search($keyword)
     {
-        return $this->builder->whereHas('game', function ($query) use ($keyword) { //search based on game name
+        return $this->builder->whereHas('game', function ($query) use ($keyword) {
             $query->where('name', 'LIKE', "%{$keyword}%");
         });
     }

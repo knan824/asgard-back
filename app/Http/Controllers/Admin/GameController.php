@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Filters\GameFilter;
+use App\Filters\Admin\GameFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GameStoreRequest;
 use App\Http\Requests\Admin\GameUpdateRequest;
