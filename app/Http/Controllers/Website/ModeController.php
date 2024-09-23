@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Filters\Admin\ModeFilter;
+use App\Filters\Website\ModeFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Website\ModeResource;
 use App\Models\Mode;

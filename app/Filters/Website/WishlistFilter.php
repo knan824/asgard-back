@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Filters\Admin;
+namespace App\Filters\Website;
+
+use App\Filters\QueryFilter;
 
 class WishlistFilter extends QueryFilter
 {

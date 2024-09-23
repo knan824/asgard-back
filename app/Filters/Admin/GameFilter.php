@@ -2,6 +2,8 @@
 
 namespace App\Filters\Admin;
 
+use App\Filters\QueryFilter;
+
 class GameFilter extends QueryFilter
 {
     public function search($keyword)
@@ -31,6 +33,16 @@ class GameFilter extends QueryFilter
         return $this->builder->whereHas('platforms', function ($query) use ($keyword) {
             $query->where('name', 'LIKE', "%{$keyword}%");
         });
+    }
+
+    public function releaseYearFrom($year)
+    {
+        return $this->builder->where('release_year', '>=', $year);
+    }
+
+    public function createdAt($date)
+    {
+        return $this->builder->whereDate('created_at', $date);
     }
 
     public function available($state)

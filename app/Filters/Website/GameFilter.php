@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Filters\Admin;
+namespace App\Filters\Website;
+
+use App\Filters\QueryFilter;
 
 class GameFilter extends QueryFilter
 {
@@ -9,9 +11,14 @@ class GameFilter extends QueryFilter
         return $this->builder->where('name', 'LIKE', "%{$keyword}%");
     }
 
-    public function year($keyword) //from date
+    public function year($keyword)
     {
         return $this->builder->where('release_year', 'LIKE', "%{$keyword}%");
+    }
+
+    public function releaseYearFrom($year)
+    {
+        return $this->builder->where('release_year', '>=', $year);
     }
 
     public function developer($keyword)
@@ -31,15 +38,5 @@ class GameFilter extends QueryFilter
         return $this->builder->whereHas('platforms', function ($query) use ($keyword) {
             $query->where('name', 'LIKE', "%{$keyword}%");
         });
-    }
-
-    public function available($state)
-    {
-        return $this->builder->available($state);
-    }
-
-    public function visible($state)
-    {
-        return $this->builder->visible($state);
     }
 }

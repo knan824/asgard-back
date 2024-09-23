@@ -2,6 +2,8 @@
 
 namespace App\Filters\Admin;
 
+use App\Filters\QueryFilter;
+
 class WishlistFilter extends QueryFilter
 {
     public function search($keyword)

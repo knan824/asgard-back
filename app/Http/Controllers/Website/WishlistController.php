@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Filters\Admin\WishlistFilter;
+use App\Filters\Website\WishlistFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\WishlistStoreRequest;
 use App\Http\Resources\Website\WishlistResource;

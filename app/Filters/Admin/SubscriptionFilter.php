@@ -2,6 +2,8 @@
 
 namespace App\Filters\Admin;
 
+use App\Filters\QueryFilter;
+
 class SubscriptionFilter extends QueryFilter
 {
     public function search($keyword)

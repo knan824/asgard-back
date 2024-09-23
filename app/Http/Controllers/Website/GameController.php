@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Filters\Admin\GameFilter;
+use App\Filters\Website\GameFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Website\GameResource;
 use App\Models\Game;

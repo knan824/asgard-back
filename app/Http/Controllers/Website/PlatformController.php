@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Filters\Admin\PlatformFilter;
+use App\Filters\Website\PlatformFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Website\PlatformResource;
 use App\Models\Platform;
