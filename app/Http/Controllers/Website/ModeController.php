@@ -16,7 +16,7 @@ class ModeController extends Controller
     {
         $modes = Mode::filter($filter)->paginate();
 
-        return response(ModeResource::collection($modes));
+        return (ModeResource::collection($modes));
     }
 
     /**

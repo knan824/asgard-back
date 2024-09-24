@@ -6,7 +6,7 @@ use App\Filters\QueryFilter;
 
 class GameFilter extends QueryFilter
 {
-    public function search($keyword)
+    public function name($keyword)
     {
         return $this->builder->where('name', 'LIKE', "%{$keyword}%");
     }
@@ -18,7 +18,9 @@ class GameFilter extends QueryFilter
 
     public function releaseYearFrom($year)
     {
-        return $this->builder->where('release_year', '>=', $year);
+        return $this->builder
+            ->where('release_year', '>=', $year)
+            ->orderBy('release_year');
     }
 
     public function developer($keyword)

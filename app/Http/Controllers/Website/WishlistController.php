@@ -8,8 +8,6 @@ use App\Http\Requests\Website\WishlistStoreRequest;
 use App\Http\Resources\Website\WishlistResource;
 use App\Models\Wishlist;
 
-//why is user imported here?
-
 class WishlistController extends Controller
 {
     /**
@@ -17,7 +15,7 @@ class WishlistController extends Controller
      */
     public function index(WishlistFilter $filter)
     {
-        $wishlists = Wishlist::filter($filter)->paginate();
+        $wishlists = auth()->user()->wishlists()->filter($filter)->paginate();
 
         return response(WishlistResource::collection($wishlists));
     }

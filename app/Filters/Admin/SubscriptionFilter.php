@@ -10,5 +10,4 @@ class SubscriptionFilter extends QueryFilter
     {
         return $this->builder->where('name', 'LIKE', "%{$keyword}%");
     }
-
 }

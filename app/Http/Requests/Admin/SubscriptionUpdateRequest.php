@@ -39,7 +39,7 @@ class SubscriptionUpdateRequest extends FormRequest
             $this->subscription->image()->delete();
 
             $path = $this->image->store('subscriptions');
-            $this->subscription->image()->update([
+            $this->subscription->image()->create([
                 'path' => $path,
                 'is_main' => true,
                 'extension' => $this->image->extension(),
