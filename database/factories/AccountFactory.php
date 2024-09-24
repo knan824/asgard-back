@@ -19,7 +19,7 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         return [
-            'psn_email' => fake()->safeEmail(),
+            'psn_email' => fake()->safeEmail,
             'user_id' => User::factory(),
 //            'platform_type' => Platform::factory(),
             'password' => fake()->password(),

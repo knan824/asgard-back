@@ -15,9 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::paginate();
+        $this->account = Account::paginate();
 
-        return response(AccountResource::collection($accounts));
+        return response(AccountResource::collection($this->account));
     }
 
     /**
@@ -50,7 +50,7 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(AccountUpdateRequest $request, account $account)
+    public function update(AccountUpdateRequest $request, Account $account)
     {
         if ($account->user_id !== auth()->id()) {
             return response()->json(['error' => 'Unauthorized'], 403);

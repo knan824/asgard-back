@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('account_platforms');
+        Schema::dropIfExists('account_platform');
     }
 };

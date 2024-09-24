@@ -13,9 +13,8 @@ Route::apiResource('platforms', PlatformController::class)->only(['index', 'show
 Route::apiResource('subscriptions', SubscriptionController::class)->only(['index', 'show']);
 Route::apiResource('modes', ModeController::class);
 Route::apiResource('accounts', AccountController::class);
-
-
+Route::apiResource('wishlists', WishlistController::class)->only(['index', 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('wishlists', WishlistController::class)->only(['index', 'store', 'destroy']);
+    Route::apiResource('wishlists', WishlistController::class)->only(['store', 'update', 'destroy']);
 });

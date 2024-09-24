@@ -69,5 +69,4 @@ class AccountUpdateRequest extends FormRequest
 
         return $this->account->refresh();
     }
-
 }

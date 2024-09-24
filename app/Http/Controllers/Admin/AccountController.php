@@ -17,7 +17,7 @@ class AccountController extends Controller
     {
         $accounts = Account::paginate();
 
-        return response(AccountResource::collection($accounts));
+        return (AccountResource::collection($accounts));
     }
 
     /**

@@ -61,7 +61,7 @@ class Game extends Model
 
     public function remove()
     {
-        $this->price->delete();
+        $this->price()->delete();
         $this->users()->detach();
         $this->wishlists()->delete();
         $this->images()->delete();
