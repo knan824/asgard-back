@@ -24,7 +24,7 @@ class GameFilter extends QueryFilter
     public function mode($keyword)
     {
         return $this->builder->whereHas('modes', function ($query) use ($keyword) {
-            $query->where('name', 'LIKE', "%{$keyword}%");
+            $query->where('id', 'LIKE', "%{$keyword}%");
         });
     }
 

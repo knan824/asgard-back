@@ -6,7 +6,7 @@ use App\Filters\QueryFilter;
 
 class SubscriptionFilter extends QueryFilter
 {
-    public function search($keyword)
+    public function name($keyword)
     {
         return $this->builder->where('name', 'LIKE', "%{$keyword}%");
     }

@@ -17,7 +17,7 @@ class WishlistController extends Controller
     {
         $wishlists = auth()->user()->wishlists()->filter($filter)->paginate();
 
-        return response(WishlistResource::collection($wishlists));
+        return WishlistResource::collection($wishlists);
     }
 
     /**

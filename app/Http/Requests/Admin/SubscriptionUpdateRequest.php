@@ -36,10 +36,9 @@ class SubscriptionUpdateRequest extends FormRequest
 
         if ($this->exists('image')) {
             Storage::delete($this->subscription->image->path);
-            $this->subscription->image()->delete();
 
             $path = $this->image->store('subscriptions');
-            $this->subscription->image()->create([
+            $this->subscription->image()->update([
                 'path' => $path,
                 'is_main' => true,
                 'extension' => $this->image->extension(),

@@ -38,7 +38,7 @@ class GameFilter extends QueryFilter
     public function platforms($keyword)
     {
         return $this->builder->whereHas('platforms', function ($query) use ($keyword) {
-            $query->where('name', 'LIKE', "%{$keyword}%");
+            $query->where('id', 'LIKE', "%{$keyword}%");
         });
     }
 }
