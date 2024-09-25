@@ -23,7 +23,7 @@ class AccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>'sometimes|numeric|exists:users,id|min:0',
+            'user_id'=> 'sometimes|numeric|exists:users,id|min:0',
             'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,psn_email',
             'password' => 'sometimes|string|min:8|max:255|regex:/[a-zA-Z]/|regex:/[0-9]/|confirmed',
             'platform' => [

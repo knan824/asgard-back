@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\AccountStoreRequest;
-use App\Http\Requests\Admin\AccountUpdateRequest;
-use App\Http\Resources\Admin\AccountResource;
+use App\Http\Requests\Website\AccountStoreRequest;
+use App\Http\Requests\Website\AccountUpdateRequest;
+use App\Http\Resources\Website\AccountResource;
 use App\Models\Account;
 
-class AccountController extends Controller
+class AccountUserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $accounts = Account::paginate();
+        $account = auth()->user()->accounts()->paginate();
 
-        return AccountResource::collection($accounts);
+        return AccountResource::collection($account);
     }
 
     /**
@@ -38,6 +38,10 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
+        if ($account->user_id !== auth()->id()) {
+            return response(['error' => 'Unauthorized'], 403);
+        }
+
         return response([
             'account' => new AccountResource($account),
         ]);
@@ -48,6 +52,10 @@ class AccountController extends Controller
      */
     public function update(AccountUpdateRequest $request, Account $account)
     {
+        if ($account->user_id !== auth()->id()) {
+            return response(['error' => 'Unauthorized'], 403);
+        }
+
         $account = $request->updateAccount();
 
         return response([

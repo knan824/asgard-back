@@ -13,10 +13,15 @@ class Account extends Model
         'user_id',
         'psn_email',
         'password',
-        'platform_type',
         'is_sold',
         'is_blocked',
         'is_primary',
+    ];
+
+    protected $casts = [
+        'is_sold' => 'boolean',
+        'is_blocked' => 'boolean',
+        'is_primary' => 'boolean',
     ];
 
     public function user()
@@ -41,7 +46,12 @@ class Account extends Model
 
     public function image()
     {
-        return $this->morphMany(Image::class, 'mediable');
+        return $this->morphOne(Image::class, 'mediable');
+    }
+
+    public function scopeBlocked($query, $blocked = true)
+    {
+        return $query->where('is_blocked', $blocked);
     }
 
     public function remove()
