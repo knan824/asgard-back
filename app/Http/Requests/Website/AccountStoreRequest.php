@@ -53,6 +53,7 @@ class AccountStoreRequest extends FormRequest
         $account->price()->create(['price' => $this->price]);
 
         $path = $this->image->store('accounts');
+
         $account->image()->create([
             'path' => $path,
             'is_main' => true,

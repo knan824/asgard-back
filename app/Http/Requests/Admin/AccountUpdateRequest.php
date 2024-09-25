@@ -23,7 +23,8 @@ class AccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,email,'. $this->email->id,
+            'user_id'=>'sometimes|numeric|exists:users,id|min:0',
+            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,psn_email,'. $this->email->id,
             'password' => 'sometimes|string|min:8|max:255|regex:/[a-zA-Z]/|regex:/[0-9]/|confirmed',
             'platform' => [
                 'sometimes',
@@ -42,8 +43,6 @@ class AccountUpdateRequest extends FormRequest
             'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
             'price' => 'sometimes|numeric|min:0',
             'is_sold' => 'sometimes|boolean',
-            'is_blocked' => 'sometimes|boolean',
-            'is_primary' =>'sometimes|boolean',
             ];
     }
 

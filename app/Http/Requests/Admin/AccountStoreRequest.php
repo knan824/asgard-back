@@ -24,6 +24,7 @@ class AccountStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id'=>'required|numeric|exists:users,id|min:0',
             'psn_email' => 'required|string|email|max:255|min:2|unique:accounts,psn_email',
             'password' => 'required|string|min:8|max:255|regex:/[a-zA-Z]/|regex:/[0-9]/|confirmed',
             'platform' => [

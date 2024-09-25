@@ -39,18 +39,17 @@ class Account extends Model
         return $this->morphOne(Price::class, 'priceable');
     }
 
-    public function images()
+    public function image()
     {
         return $this->morphMany(Image::class, 'mediable');
     }
 
     public function remove()
     {
-        $this->user()->detach();
         $this->games()->detach();
         $this->platforms()->detach();
         $this->price()->delete();
-        $this->images()->delete();
+        $this->image()->delete();
         $this->delete();
     }
 }

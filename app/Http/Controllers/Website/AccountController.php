@@ -15,9 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $this->account = Account::paginate();
+        $account = auth()->user()->wishlists()->paginate(10);
 
-        return response(AccountResource::collection($this->account));
+        return response(AccountResource::collection($account));
     }
 
     /**
