@@ -22,7 +22,7 @@ class AccountResource extends JsonResource
             'is_primary' => $this->is_primary,
             'games' => GameResource::collection($this->games),
             'platforms' => PlatformResource::collection($this->platforms),
-            'image' => ImageResource::collection($this->image),
+            'image' => new ImageResource($this->image),
         ];
     }
 }

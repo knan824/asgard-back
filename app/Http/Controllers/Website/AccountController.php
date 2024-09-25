@@ -14,9 +14,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $account = Account::blocked(false)->paginate();
+        $accounts = Account::with('platforms', 'games', 'image')->blocked(false)->paginate();
 
-        return AccountResource::collection($account);
+        return AccountResource::collection($accounts);
     }
 
     /**

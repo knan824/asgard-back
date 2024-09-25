@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function accounts()
     {
-        return $this->belongsToMany(Account::class);
+        return $this->hasMany(Account::class);
     }
 
     public function images()

@@ -15,7 +15,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::paginate();
+        $accounts = Account::with(['games', 'platforms', 'image'])->paginate();
 
         return AccountResource::collection($accounts);
     }
@@ -51,7 +51,7 @@ class AccountController extends Controller
         $account = $request->updateAccount();
 
         return response([
-            'message' => 'account updated successfully',
+            'message' => __('auth.failed'),
             'account' => new AccountResource($account),
         ]);
     }

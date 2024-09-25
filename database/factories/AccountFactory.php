@@ -21,10 +21,10 @@ class AccountFactory extends Factory
         return [
             'psn_email' => fake()->safeEmail,
             'user_id' => User::factory(),
-            'password' => fake()->password(),
-            'is_sold' => fake()->boolean(),
-            'is_blocked' => fake()->boolean(),
-            'is_primary' => fake()->boolean(),
+            'password' => fake()->password,
+            'is_sold' => fake()->boolean,
+            'is_blocked' => fake()->boolean,
+            'is_primary' => fake()->boolean,
         ];
     }
 }
