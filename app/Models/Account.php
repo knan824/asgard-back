@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Account extends Model
 {
@@ -56,10 +57,12 @@ class Account extends Model
 
     public function remove()
     {
-        $this->games()->detach();
-        $this->platforms()->detach();
-        $this->price()->delete();
-        $this->image()->delete();
-        $this->delete();
+        return DB::transaction(function () {
+            $this->games()->detach();
+            $this->platforms()->detach();
+            $this->price()->delete();
+            $this->image()->delete();
+            $this->delete();
+        });
     }
 }

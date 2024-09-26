@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class AccountUpdateRequest extends FormRequest
@@ -23,8 +24,8 @@ class AccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>'sometimes|numeric|exists:users,id|min:0',
-            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,psn_email,'. $this->email->id,
+            'user_id' => 'sometimes|numeric|exists:users,id|min:0',
+            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,psn_email,' . $this->psn_email,
             'password' => 'sometimes|string|min:8|max:255|regex:/[a-zA-Z]/|regex:/[0-9]/|confirmed',
             'platform' => [
                 'sometimes',
@@ -43,29 +44,31 @@ class AccountUpdateRequest extends FormRequest
             'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
             'price' => 'sometimes|numeric|min:0',
             'is_sold' => 'sometimes|boolean',
-            ];
+        ];
     }
 
     public function updateAccount()
     {
-        $this->account->update($this->validated());
-        $this->account->platforms()->sync($this->platform);
-        $this->account->price->update(['price' => $this->price]);
+        return DB::transaction(function () {
+            $this->account->update($this->validated());
+            $this->account->platforms()->sync($this->platform);
+            $this->account->price->update(['price' => $this->price]);
 
-        if ($this->exists('image')) {
-            Storage::delete($this->account->image->path);
-            $this->account->image()->delete();
+            if ($this->exists('image')) {
+                Storage::delete($this->account->image->path);
+                $this->account->image()->delete();
 
-            $path = $this->image->store('accounts');
-            $this->account->image()->update([
-                'path' => $path,
-                'is_main' => true,
-                'extension' => $this->image->extension(),
-                'size' => $this->image->getSize(),
-                'type' => 'photo',
-            ]);
-        }
+                $path = $this->image->store('accounts');
+                $this->account->image()->update([
+                    'path' => $path,
+                    'is_main' => true,
+                    'extension' => $this->image->extension(),
+                    'size' => $this->image->getSize(),
+                    'type' => 'photo',
+                ]);
+            }
 
-        return $this->account->refresh();
+            return $this->account->refresh();
+        });
     }
 }

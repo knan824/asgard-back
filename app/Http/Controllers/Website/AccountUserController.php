@@ -15,7 +15,7 @@ class AccountUserController extends Controller
      */
     public function index()
     {
-        $account = auth()->user()->accounts()->paginate();
+        $account = Account::with(['games','platforms','images'])->auth()->user()->accounts()->paginate();
 
         return AccountResource::collection($account);
     }

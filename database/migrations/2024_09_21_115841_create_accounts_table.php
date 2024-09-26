@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('psn_email');
             $table->string('password');
-           $table->boolean('is_sold')->default(false);
+            $table->boolean('is_sold')->default(false);
             $table->boolean('is_blocked')->default(false);
             $table->boolean('is_primary');
             $table->timestamps();

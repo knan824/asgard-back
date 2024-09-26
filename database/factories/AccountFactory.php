@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Platform;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Account>
@@ -18,13 +19,15 @@ class AccountFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'psn_email' => fake()->safeEmail,
-            'user_id' => User::factory(),
-            'password' => fake()->password,
-            'is_sold' => fake()->boolean,
-            'is_blocked' => fake()->boolean,
-            'is_primary' => fake()->boolean,
-        ];
+        return DB::transaction(function () {
+            return [
+                'psn_email' => fake()->safeEmail,
+                'user_id' => User::factory(),
+                'password' => fake()->password,
+                'is_sold' => fake()->boolean,
+                'is_blocked' => fake()->boolean,
+                'is_primary' => fake()->boolean,
+            ];
+        });
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Website;
 
 use App\Models\Account;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class AccountStoreRequest extends FormRequest
 {
@@ -48,20 +49,22 @@ class AccountStoreRequest extends FormRequest
 
     public function storeAccount()
     {
-        $account = Account::create($this->validated());
-        $account->platforms()->attach($this->platform);
-        $account->price()->create(['price' => $this->price]);
+        return DB::transaction(function () {
+            $account = Account::create($this->validated());
+            $account->platforms()->attach($this->platform);
+            $account->price()->create(['price' => $this->price]);
 
-        $path = $this->image->store('accounts');
+            $path = $this->image->store('accounts');
 
-        $account->image()->create([
-            'path' => $path,
-            'is_main' => true,
-            'extension' => $this->image->extension(),
-            'size' => $this->image->getSize(),
-            'type' => 'photo',
+            $account->image()->create([
+                'path' => $path,
+                'is_main' => true,
+                'extension' => $this->image->extension(),
+                'size' => $this->image->getSize(),
+                'type' => 'photo',
         ]);
 
         return $account;
+    });
     }
 }
