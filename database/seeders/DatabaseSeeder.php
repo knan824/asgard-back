@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SubscriptionSeeder::class,
             UserSeeder::class,
+            UserFakeSeeder::class,
             PlatformSeeder::class,
             ModeSeeder::class,
             GameSeeder::class,
