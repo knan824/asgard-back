@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Rules\OneMainImage;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class GameUpdateRequest extends FormRequest
@@ -33,29 +34,31 @@ class GameUpdateRequest extends FormRequest
 
     public function updateGame()
     {
-        $this->game->update($this->validated());
-        $this->game->platforms()->sync($this->platform);
-        $this->game->modes()->sync($this->mode);
+        return DB::transaction(function () {
+            $this->game->update($this->validated());
+            $this->game->platforms()->sync($this->platform);
+            $this->game->modes()->sync($this->mode);
 
-        if ($this->exists('images')) {
-            if ($this->game->images->count() > 0) {
-                foreach($this->game->images as $image) {
-                    Storage::delete($image->path);
+            if ($this->exists('images')) {
+                if ($this->game->images->count() > 0) {
+                    foreach ($this->game->images as $image) {
+                        Storage::delete($image->path);
+                    }
+                    $this->game->images()->delete();
                 }
-                $this->game->images()->delete();
+                foreach ($this->images as $imageFile) {
+                    $path = $imageFile->store('games');
+                    $this->game->images()->create([
+                        'path' => $path,
+                        'is_main' => $this->$imageFile['is_main'] ?? false,
+                        'extension' => $imageFile->extension(),
+                        'size' => $imageFile->getSize(),
+                        'type' => 'photo',
+                    ]);
+                }
             }
-            foreach ($this->images as $imageFile) {
-                $path = $imageFile->store('games');
-                $this->game->images()->create([
-                    'path' => $path,
-                    'is_main' => $this->$imageFile['is_main'] ?? false,
-                    'extension' => $imageFile->extension(),
-                    'size' => $imageFile->getSize(),
-                    'type' => 'photo',
-                ]);
-            }
-        }
 
-        return $this->game->refresh();
+            return $this->game->refresh();
+        });
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Game extends Model
 {
@@ -64,9 +65,11 @@ class Game extends Model
 
     public function remove()
     {
-        $this->users()->detach();
-        $this->wishlists()->delete();
-        $this->images()->delete();
-        $this->delete();
+        return DB::transaction(function () {
+            $this->users()->detach();
+            $this->wishlists()->delete();
+            $this->images()->delete();
+            $this->delete();
+        });
     }
 }
