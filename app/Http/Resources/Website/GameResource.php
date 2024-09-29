@@ -15,8 +15,10 @@ class GameResource extends JsonResource
             'name' => $this->name,
             'release_year' => $this->release_year,
             'developer' => $this->developer,
+            'is_available' => $this->is_available,
             'images' => ImageResource::collection($this->images),
             'platforms' => PlatformResource::collection($this->platforms),
+            'accounts' => AccountSimplestResource::collection($this->validAccounts),
             'modes' => ModeResource::collection($this->modes),
         ];
     }

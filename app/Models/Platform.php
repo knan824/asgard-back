@@ -18,6 +18,11 @@ class Platform extends Model
         $this->belongsToMany(Game::class);
     }
 
+    public function accounts()
+    {
+        return $this->belongsToMany(Account::class);
+    }
+
     public function image()
     {
         return $this->morphOne(Image::class, 'mediable');

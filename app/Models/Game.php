@@ -47,6 +47,16 @@ class Game extends Model
         return $this->hasMany(Wishlist::class);
     }
 
+    public function accounts()
+    {
+        return $this->belongsToMany(Account::class);
+    }
+
+    public function validAccounts()
+    {
+        return $this->accounts()->blocked(false)->sold(false)->hasValidUser();
+    }
+
     public function getMainImageAttribute()
     {
         return $this->images()->where('is_main', true)->first();

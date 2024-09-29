@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Website\AccountController;
+use App\Http\Controllers\Website\AccountUserController;
 use App\Http\Controllers\Website\GameController;
 use App\Http\Controllers\Website\ModeController;
 use App\Http\Controllers\Website\PlatformController;
@@ -11,7 +13,10 @@ Route::apiResource('games', GameController::class)->only(['index', 'show']);
 Route::apiResource('platforms', PlatformController::class)->only(['index', 'show']);
 Route::apiResource('subscriptions', SubscriptionController::class)->only(['index', 'show']);
 Route::apiResource('modes', ModeController::class);
+Route::apiResource('wishlists', WishlistController::class)->only(['index', 'show']);
+Route::apiResource('accounts', AccountController::class)->only(['index', 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('wishlists', WishlistController::class)->only(['index', 'store', 'destroy']);
+    Route::apiResource('users.accounts', AccountUserController::class);
+    Route::apiResource('wishlists', WishlistController::class)->only(['store', 'update', 'destroy']);
 });

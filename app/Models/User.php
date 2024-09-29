@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -29,12 +30,12 @@ class User extends Authenticatable
 
     public function games()
     {
-        return $this->belongsToMany(Game::class, 'user_game');
+        return $this->belongsToMany(Game::class);
     }
 
     public function subscriptions()
     {
-        return $this->belongsToMany(Subscription::class, 'user_subscription');
+        return $this->belongsToMany(Subscription::class);
     }
 
     public function wishlists()
@@ -42,9 +43,19 @@ class User extends Authenticatable
         return $this->hasMany(Wishlist::class);
     }
 
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
     public function images()
     {
         return $this->morphMany(Image::class, 'mediable');
+    }
+
+    public function remove()
+    {
+        $this->delete();
     }
 }
 

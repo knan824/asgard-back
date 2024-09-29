@@ -5,7 +5,7 @@ namespace App\Http\Resources\Website;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GameSimpleResource extends JsonResource
+class AccountUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,14 @@ class GameSimpleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'user' => new UserResource($this->user),
-            'price' => new PriceResource($this->price),
-            'image' => ImageResource::make($this->MainImage),
+            'psn_email' => $this->psn_email,
+            'password' => $this->password,
+            'is_sold' => $this->is_sold,
+            'is_blocked' => $this->is_blocked,
+            'is_primary' => $this->is_primary,
+            'image' => new ImageResource($this->image),
+            'games' => GameSimpleResource::collection($this->games),
             'platforms' => PlatformResource::collection($this->platforms),
-            'modes' => ModeResource::collection($this->modes),
         ];
     }
 }
