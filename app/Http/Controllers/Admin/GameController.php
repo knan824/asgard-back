@@ -15,7 +15,7 @@ class GameController extends Controller
     {
         $games = Game::filter($filter)->paginate();
 
-        return response(GameResource::collection($games));
+        return (GameResource::collection($games));
     }
 
     public function store(GameStoreRequest $request)
