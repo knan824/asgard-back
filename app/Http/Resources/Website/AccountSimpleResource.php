@@ -20,8 +20,9 @@ class AccountSimpleResource extends JsonResource
             'is_sold' => $this->is_sold,
             'is_blocked' => $this->is_blocked,
             'is_primary' => $this->is_primary,
-            'user' => new UserResource($this->user),
+            'user' => new UserSimpleResource($this->user),
             'games' => GameSimpleResource::collection($this->games),
+            'platforms' => PlatformResource::collection($this->platforms),
         ];
     }
 }
