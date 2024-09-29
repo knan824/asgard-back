@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AccountStoreRequest;
 use App\Http\Requests\Admin\AccountUpdateRequest;
 use App\Http\Resources\Admin\AccountResource;
+use App\Http\Resources\Admin\AccountSimpleResource;
 use App\Models\Account;
 
 class AccountController extends Controller
@@ -15,9 +16,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::with(['games', 'platforms', 'image'])->paginate();
+        $accounts = Account::with(['user', 'games'])->paginate();
 
-        return AccountResource::collection($accounts);
+        return AccountSimpleResource::collection($accounts);
     }
 
     /**
@@ -28,7 +29,7 @@ class AccountController extends Controller
         $account = $request->storeAccount();
 
         return response([
-            'message' => 'account created successfully',
+            'message' => 'Account created successfully',
             'account' => new AccountResource($account),
         ]);
     }
@@ -51,7 +52,7 @@ class AccountController extends Controller
         $account = $request->updateAccount();
 
         return response([
-            'message' => __('auth.failed'),
+            'message' => 'Account updated successfully',
             'account' => new AccountResource($account),
         ]);
     }

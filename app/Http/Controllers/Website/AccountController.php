@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Website\AccountResource;
+use App\Http\Resources\Website\AccountSimpleResource;
 use App\Models\Account;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -14,9 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::with('platforms', 'games', 'image')->blocked(false)->paginate();
+        $accounts = Account::with(['user', 'games'])->blocked(false)->sold(false)->hasValidUser()->paginate();
 
-        return AccountResource::collection($accounts);
+        return AccountSimpleResource::collection($accounts);
     }
 
     /**

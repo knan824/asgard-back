@@ -13,7 +13,6 @@ class Game extends Model
         'name',
         'release_year',
         'developer',
-        'mode',
         'is_available',
         'is_visible',
     ];
@@ -38,7 +37,6 @@ class Game extends Model
         return $this->belongsToMany(User::class);
     }
 
-
     public function images()
     {
         return $this->morphMany(Image::class, 'mediable');
@@ -54,6 +52,11 @@ class Game extends Model
         return $this->belongsToMany(Account::class);
     }
 
+    public function validAccounts()
+    {
+        return $this->accounts()->blocked(false)->sold(false)->hasValidUser();
+    }
+
     public function getMainImageAttribute()
     {
         return $this->images()->where('is_main', true)->first();
@@ -61,7 +64,6 @@ class Game extends Model
 
     public function remove()
     {
-        $this->price()->delete();
         $this->users()->detach();
         $this->wishlists()->delete();
         $this->images()->delete();

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Website;
+namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class UserSimpleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,6 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'subscriptions' => SubscriptionResource::collection($this->subscriptions),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

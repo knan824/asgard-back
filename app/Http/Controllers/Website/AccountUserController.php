@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\AccountStoreRequest;
 use App\Http\Requests\Website\AccountUpdateRequest;
-use App\Http\Resources\Website\AccountResource;
+use App\Http\Resources\Website\AccountUserResource;
 use App\Models\Account;
+use App\Models\User;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AccountUserController extends Controller
 {
@@ -15,9 +17,9 @@ class AccountUserController extends Controller
      */
     public function index()
     {
-        $account = Account::with(['games','platforms','images'])->auth()->user()->accounts()->paginate();
+        $accounts = auth()->user()->accounts()->with(['games', 'platforms', 'image'])->paginate();
 
-        return AccountResource::collection($account);
+        return AccountUserResource::collection($accounts);
     }
 
     /**
@@ -28,47 +30,45 @@ class AccountUserController extends Controller
         $account = $request->storeAccount();
 
         return response([
-            'message' => 'account created successfully',
-            'account' => new AccountResource($account),
+            'message' => 'Account created successfully',
+            'account' => new AccountUserResource($account),
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Account $account)
+    public function show(User $user, Account $account)
     {
-        if ($account->user_id !== auth()->id()) {
-            return response(['error' => 'Unauthorized'], 403);
-        }
+        if ($account->user_id !== auth()->id() && $account->user_id !== $user->id) throw new NotFoundHttpException;
 
         return response([
-            'account' => new AccountResource($account),
+            'account' => new AccountUserResource($account),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(AccountUpdateRequest $request, Account $account)
+    public function update(AccountUpdateRequest $request, User $user, Account $account)
     {
-        if ($account->user_id !== auth()->id()) {
-            return response(['error' => 'Unauthorized'], 403);
-        }
+        if ($account->user_id !== auth()->id() && $account->user_id !== $user->id) throw new NotFoundHttpException;
 
         $account = $request->updateAccount();
 
         return response([
-            'message' => 'account updated successfully',
-            'account' => new AccountResource($account),
+            'message' => 'Account updated successfully',
+            'account' => new AccountUserResource($account),
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Account $account)
+    public function destroy(User $user, Account $account)
     {
+        if ($account->user_id !== auth()->id() && $account->user_id !== $user->id) throw new NotFoundHttpException;
+
         $account->remove();
 
         return response([

@@ -16,14 +16,17 @@ class AccountResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
             'psn_email' => $this->psn_email,
+            'password' => $this->password,
             'is_sold' => $this->is_sold,
             'is_blocked' => $this->is_blocked,
             'is_primary' => $this->is_primary,
-            'games' => GameResource::collection($this->games),
+            'user' => new UserSimpleResource($this->user),
+            'games' => GameSimpleResource::collection($this->games),
             'platforms' => PlatformResource::collection($this->platforms),
             'image' => new ImageResource($this->image),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

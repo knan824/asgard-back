@@ -21,8 +21,8 @@ class AccountFactory extends Factory
     {
         return DB::transaction(function () {
             return [
-                'psn_email' => fake()->safeEmail,
                 'user_id' => User::factory(),
+                'psn_email' => fake()->safeEmail,
                 'password' => fake()->password,
                 'is_sold' => fake()->boolean,
                 'is_blocked' => fake()->boolean,

@@ -23,41 +23,39 @@ class AccountUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $accountPlatformRule = function ($attribute, $value, $fail) {
+            $isPrimary = $this->is_primary ?? $this->account->is_primary;   //keeps current primary choice if no new is added
+            if ($isPrimary && count($value) > 2) {
+                $fail('A primary account can have a maximum of two platforms.');
+            } elseif (!$isPrimary && count($value) > 1) {
+                $fail('A secondary account can have a maximum of one platform.');
+            }
+        };
+
         return [
-            'user_id' => 'sometimes|numeric|exists:users,id|min:0',
-            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,psn_email,' . $this->psn_email,
+            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,psn_email,' . $this->account->id,
             'password' => 'sometimes|string|min:8|max:255|regex:/[a-zA-Z]/|regex:/[0-9]/|confirmed',
-            'platform' => [
-                'sometimes',
-                'array',
-                'min:1',
-                function ($attribute, $value, $fail) {
-                    $isPrimary = $this->is_primary ?? $this->account->is_primary; //keeps current primary choice if no new is added
-                    if ($isPrimary && count($value) > 2) {
-                        $fail('A primary account can have a maximum of two platforms.');
-                    } elseif (!$isPrimary && count($value) > 1) {
-                        $fail('A secondary account can only be added to one platform.');
-                    }
-                },
-            ],
+            'platform' => ['sometimes', 'array', 'min:1', $accountPlatformRule,],
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
-            'price' => 'sometimes|numeric|min:0',
             'is_sold' => 'sometimes|boolean',
+            'is_primary' => 'sometimes|boolean',
         ];
     }
 
     public function updateAccount()
     {
         return DB::transaction(function () {
-            $this->account->update($this->validated());
+            $this->account->update([
+                'psn_email' => $this->psn_email,
+                'password' => $this->password,
+                'is_sold' => $this->is_sold ?? false,
+                'is_primary' => $this->is_primary,
+            ]);
             $this->account->platforms()->sync($this->platform);
-            $this->account->price->update(['price' => $this->price]);
 
             if ($this->exists('image')) {
                 Storage::delete($this->account->image->path);
-                $this->account->image()->delete();
-
                 $path = $this->image->store('accounts');
                 $this->account->image()->update([
                     'path' => $path,

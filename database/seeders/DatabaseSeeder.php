@@ -11,17 +11,15 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-           DB::transaction(function () {
-               $this->call([
-                   SubscriptionSeeder::class,
-                   UserSeeder::class,
-                   UserFakeSeeder::class,
-                   PlatformSeeder::class,
-                   ModeSeeder::class,
-                   GameSeeder::class,
-                   WishlistSeeder::class,
-                   AccountSeeder::class,
-               ]);
-           });
+           $this->call([
+               SubscriptionSeeder::class,
+               UserSeeder::class,
+               UserFakeSeeder::class,
+               PlatformSeeder::class,
+               ModeSeeder::class,
+               GameSeeder::class,
+               WishlistSeeder::class,
+               AccountSeeder::class,
+           ]);
     }
 }

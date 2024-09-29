@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Account extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -27,7 +28,7 @@ class Account extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->BelongsTo(User::class)->withTrashed();
     }
 
     public function games()
@@ -40,14 +41,19 @@ class Account extends Model
         return $this->belongsToMany(Platform::class);
     }
 
-    public function price()
-    {
-        return $this->morphOne(Price::class, 'priceable');
-    }
-
     public function image()
     {
         return $this->morphOne(Image::class, 'mediable');
+    }
+
+    public function setPasswordAttribute(string $password)
+    {
+        $this->attributes['password'] = encrypt($password);
+    }
+
+    public function getPasswordAttribute(string $password)
+    {
+        return decrypt($password);
     }
 
     public function scopeBlocked($query, $blocked = true)
@@ -55,12 +61,23 @@ class Account extends Model
         return $query->where('is_blocked', $blocked);
     }
 
+    public function scopeSold($query, $sold = true)
+    {
+        return $query->where('is_sold', false);
+    }
+
+    public function scopeHasValidUser($query)
+    {
+        return $query->whereHas('user', function ($query) {
+            $query->whereNull('deleted_at')->blocked(false);
+        });
+    }
+
     public function remove()
     {
         return DB::transaction(function () {
             $this->games()->detach();
             $this->platforms()->detach();
-            $this->price()->delete();
             $this->image()->delete();
             $this->delete();
         });

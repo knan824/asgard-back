@@ -15,6 +15,7 @@ class OneMainImage implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $images = collect($value)->filter(function ($image) {
+            if (!isset($image['is_main'])) return false;
             return (bool) $image['is_main'] === true;
         });
 
