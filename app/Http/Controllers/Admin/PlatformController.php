@@ -12,7 +12,7 @@ class PlatformController extends Controller
 {
     public function index()
     {
-        $platforms = Platform::paginate(10);
+        $platforms = Platform::with(['image'])->paginate();
 
         return PlatformResource::collection($platforms);
     }
