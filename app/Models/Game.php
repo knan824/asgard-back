@@ -62,6 +62,11 @@ class Game extends Model
         return $this->images()->where('is_main', true)->first();
     }
 
+    public function scopeVisible($query, bool $visible = true)
+    {
+        return $query->where('is_visible', $visible);
+    }
+
     public function remove()
     {
         $this->users()->detach();

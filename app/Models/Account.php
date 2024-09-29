@@ -69,7 +69,7 @@ class Account extends Model
     public function scopeHasValidUser($query)
     {
         return $query->whereHas('user', function ($query) {
-            $query->whereNull('deleted_at')->blocked(false);
+            $query->whereNull('deleted_at')->where('is_blocked', false);
         });
     }
 
