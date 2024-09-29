@@ -16,8 +16,8 @@ class AccountResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'psn_email' => $this->psn_email,
-//            'password' => $this->password,    //show only if user is owner
+//            'psn_email' => $this->psn_email,  //show only if user purchased
+//            'password' => $this->password,    //show only if user purchased
             'is_sold' => $this->is_sold,
             'is_blocked' => $this->is_blocked,
             'is_primary' => $this->is_primary,

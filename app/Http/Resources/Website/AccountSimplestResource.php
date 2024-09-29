@@ -16,8 +16,6 @@ class AccountSimplestResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'psn_email' => $this->psn_email,
-            'password' => $this->password,
             'is_sold' => $this->is_sold,
             'is_blocked' => $this->is_blocked,
             'is_primary' => $this->is_primary,
