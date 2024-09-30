@@ -33,7 +33,6 @@ class AccountUpdateRequest extends FormRequest
         };
 
         return [
-            'psn_email' => 'sometimes|string|email|max:255|min:2|unique:accounts,psn_email,'. $this->account->id,
             'password' => 'sometimes|string|min:8|max:255|regex:/[a-zA-Z]/|regex:/[0-9]/|confirmed',
             'platform' => ['sometimes', 'array', 'min:1', $accountPlatformRule],
             'platform.*' => 'integer|exists:platforms,id|required_with:platform',
@@ -46,7 +45,6 @@ class AccountUpdateRequest extends FormRequest
     {
         return DB::transaction(function () {
             $this->account->update([
-                'psn_email' => $this->psn_email,
                 'password' => $this->password,
                 'is_primary' => $this->is_primary,
             ]);

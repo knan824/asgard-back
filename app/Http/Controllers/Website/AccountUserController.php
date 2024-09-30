@@ -8,6 +8,7 @@ use App\Http\Requests\Website\AccountUpdateRequest;
 use App\Http\Resources\Website\AccountUserResource;
 use App\Models\Account;
 use App\Models\User;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AccountUserController extends Controller
@@ -41,6 +42,7 @@ class AccountUserController extends Controller
     public function show(User $user, Account $account)
     {
         if ($account->user_id !== auth()->id() && $account->user_id !== $user->id) throw new NotFoundHttpException;
+        if ($account->is_blocked) throw new NotFoundHttpException;
 
         return response([
             'account' => new AccountUserResource($account),
@@ -53,6 +55,8 @@ class AccountUserController extends Controller
     public function update(AccountUpdateRequest $request, User $user, Account $account)
     {
         if ($account->user_id !== auth()->id() && $account->user_id !== $user->id) throw new NotFoundHttpException;
+        if ($account->is_sold) throw new HttpResponseException(response (["Can't update your account when it is rented"],403));
+        if ($account->is_blocked) throw new NotFoundHttpException;
 
         $account = $request->updateAccount();
 
