@@ -50,4 +50,13 @@ class SubscriptionUpdateRequest extends FormRequest
 
         return $this->subscription->refresh();
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('Subscriptions.attributes.name'),
+            'price' => __('Subscriptions.attributes.price'),
+            'image' => __('Subscriptions.attributes.image'),
+        ];
+    }
 }
