@@ -15,11 +15,7 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlist = auth()
-            ->user()
-            ->wishlists()
-            ->with('games')
-            ->paginate();
+        $wishlist = auth()->user()->wishlists()->with('game')->paginate();
 
         return WishlistResource::collection($wishlist);
     }
