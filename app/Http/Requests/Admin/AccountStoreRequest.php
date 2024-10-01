@@ -65,4 +65,15 @@ class AccountStoreRequest extends FormRequest
             return $account->refresh();
         });
     }
+
+    public function attributes():array
+    {
+        return [
+            'psn_email' => __('Accounts.attributes.psn_email'),
+            'password' => __('Accounts.attributes.password'),
+            'platform' => __('Accounts.attributes.platform'),
+            'image' => __('Accounts.attributes.image'),
+            'is_primary' => __('Accounts.attributes.is_primary'),
+        ];
+    }
 }

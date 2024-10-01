@@ -69,4 +69,16 @@ class AccountUpdateRequest extends FormRequest
             return $this->account->refresh();
         });
     }
+
+    public function attributes():array
+    {
+        return [
+            'psn_email' => __('Accounts.attributes.psn_email'),
+            'password' => __('Accounts.attributes.password'),
+            'platform' => __('Accounts.attributes.platform'),
+            'image' => __('Accounts.attributes.image'),
+            'is_primary' => __('Accounts.attributes.is_primary'),
+            'is_sold' => __('Accounts.attributes.is_sold'),
+        ];
+    }
 }
