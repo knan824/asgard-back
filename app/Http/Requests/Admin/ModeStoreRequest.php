@@ -33,4 +33,11 @@ class ModeStoreRequest extends FormRequest
             'name' => $this->name,
         ]);
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('Modes.attributes.name'),
+        ];
+    }
 }
