@@ -28,17 +28,17 @@ class GameFilter extends QueryFilter
         return $this->builder->where('developer', 'LIKE', "%{$keyword}%");
     }
 
-    public function modes($keyword)
+    public function mode($id)
     {
-        return $this->builder->whereHas('modes', function ($query) use ($keyword) {
-            $query->where('name', 'LIKE', "%{$keyword}%");
+        return $this->builder->whereHas('modes', function ($query) use ($id) {
+            $query->where('id', $id);
         });
     }
 
-    public function platforms($keyword)
+    public function platform($id)
     {
-        return $this->builder->whereHas('platforms', function ($query) use ($keyword) {
-            $query->where('id', 'LIKE', "%{$keyword}%");
+        return $this->builder->whereHas('platforms', function ($query) use ($id) {
+            $query->where('id', $id);
         });
     }
 }

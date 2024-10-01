@@ -18,7 +18,6 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-           // 'games' => GameResource::collection($this->games),
             'subscriptions' => SubscriptionResource::collection($this->subscriptions),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

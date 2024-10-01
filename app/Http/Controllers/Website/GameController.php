@@ -12,7 +12,6 @@ class GameController extends Controller
 {
     public function index(GameFilter $filter)
     {
-
         $games = Game::filter($filter)->visible()->paginate();
 
         return response(GameResource::collection($games));

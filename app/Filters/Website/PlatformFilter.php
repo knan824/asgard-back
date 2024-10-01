@@ -10,5 +10,4 @@ class PlatformFilter extends QueryFilter
     {
         return $this->builder->where('name', 'LIKE', "%{$keyword}%");
     }
-
 }
