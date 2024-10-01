@@ -58,4 +58,18 @@ class GameStoreRequest extends FormRequest
 
         return $game;
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('Games.attributes.name'),
+            'release_year' => __('Games.attributes.release_year'),
+            'developer' => __('Games.attributes.developer'),
+            'mode' => __('Games.attributes.mode'),
+            'platform' => __('Games.attributes.platform'),
+            'images' => __('Games.attributes.images'),
+            'is_available' => __('Games.attributes.available'),
+            'is_visible' => __('Games.attributes.visible'),
+        ];
+    }
 }
