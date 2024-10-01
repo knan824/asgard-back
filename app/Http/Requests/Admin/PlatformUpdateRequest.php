@@ -40,4 +40,12 @@ class PlatformUpdateRequest extends FormRequest
 
         return $this->platform->refresh();
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('Platforms.attributes.name'),
+            'image' => __('Platforms.attributes.image'),
+        ];
+    }
 }

@@ -35,4 +35,12 @@ class PlatformStoreRequest extends FormRequest
 
        return $platform;
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('Platforms.attributes.name'),
+            'image' => __('Platforms.attributes.image'),
+        ];
+    }
 }
