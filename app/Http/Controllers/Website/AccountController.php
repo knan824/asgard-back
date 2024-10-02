@@ -15,7 +15,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::with(['user', 'games'])->blocked(false)->sold(false)->hasValidUser()->paginate();
+        $accounts = Account::with(['user', 'games', 'platforms'])->blocked(false)->sold(false)->hasValidUser()->paginate();
 
         return AccountSimpleResource::collection($accounts);
     }
