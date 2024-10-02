@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin;
 use App\Models\Game;
 use App\Rules\OneMainImage;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class GameStoreRequest extends FormRequest
 {
@@ -41,21 +42,23 @@ class GameStoreRequest extends FormRequest
 
     public function storeGame()
     {
-        $game = Game::create($this->validated());
-        $game->platforms()->attach($this->platform);
-        $game->modes()->attach($this->mode);
+        return DB::transaction(function () {
+            $game = Game::create($this->validated());
+            $game->platforms()->attach($this->platform);
+            $game->modes()->attach($this->mode);
 
-        foreach ($this->images as $imageData) {
-            $path = $imageData['image']->store('games');
-            $game->images()->create([
-               'path' => $path,
-               'is_main' => $imageData['is_main'],
-               'extension' => $imageData['image']->extension(),
-               'size' => $imageData['image']->getSize(),
-               'type' => 'photo',
-            ]);
-        }
+            foreach ($this->images as $imageData) {
+                $path = $imageData['image']->store('games');
+                $game->images()->create([
+                    'path' => $path,
+                    'is_main' => $imageData['is_main'],
+                    'extension' => $imageData['image']->extension(),
+                    'size' => $imageData['image']->getSize(),
+                    'type' => 'photo',
+                ]);
+            }
 
-        return $game;
+            return $game;
+        });
     }
 }

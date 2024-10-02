@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Platform extends Model
 {
@@ -30,7 +31,9 @@ class Platform extends Model
 
     public function remove()
     {
-        $this->image()->delete();
-        $this->delete();
+        return DB::transaction(function () {
+            $this->image()->delete();
+            $this->delete();
+        });
     }
 }
