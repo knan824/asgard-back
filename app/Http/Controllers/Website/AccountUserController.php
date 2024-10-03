@@ -40,7 +40,7 @@ class AccountUserController extends Controller
      */
     public function show(User $user, Account $account)
     {
-        if ($account->user_id !== auth()->id() && $account->user_id !== $user->id) throw new NotFoundHttpException;
+        if (! $account->belongsToLoggedUser($user)) throw new NotFoundHttpException;
 
         return response([
             'account' => new AccountUserResource($account),
@@ -52,7 +52,9 @@ class AccountUserController extends Controller
      */
     public function update(AccountUpdateRequest $request, User $user, Account $account)
     {
-        if ($account->user_id !== auth()->id() && $account->user_id !== $user->id) throw new NotFoundHttpException;
+        if (! $account->belongsToLoggedUser($user)) throw new NotFoundHttpException;
+
+        if ($account->is_sold) return response(['message' => "Can't update your account when it is rented"], 403);
 
         $account = $request->updateAccount();
 
@@ -67,7 +69,7 @@ class AccountUserController extends Controller
      */
     public function destroy(User $user, Account $account)
     {
-        if ($account->user_id !== auth()->id() && $account->user_id !== $user->id) throw new NotFoundHttpException;
+        if (! $account->belongsToLoggedUser($user)) throw new NotFoundHttpException;
 
         $account->remove();
 

@@ -73,6 +73,11 @@ class Account extends Model
         });
     }
 
+    public function belongsToLoggedUser(User $user): bool
+    {
+        return $this->user_id !== auth()->id() && $this->user_id !== $user->id || $this->is_blocked;
+    }
+
     public function remove()
     {
         return DB::transaction(function () {
