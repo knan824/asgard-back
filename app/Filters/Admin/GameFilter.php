@@ -24,6 +24,7 @@ class GameFilter extends QueryFilter
     public function mode($id)
     {
         return $this->builder->whereHas('modes', function ($query) use ($id) {
+
         $query->where('id', $id);
         });
     }
@@ -31,6 +32,7 @@ class GameFilter extends QueryFilter
     public function platform($id)
     {
         return $this->builder->whereHas('platforms', function ($query) use ($id) {
+
             $query->where('id', $id);
         });
     }
@@ -38,8 +40,7 @@ class GameFilter extends QueryFilter
     public function releaseYearFrom($year)
     {
         return $this->builder
-                ->where('release_year', '>=', $year)
-                ->orderBy('release_year');
+                ->where('release_year', '>=', $year)->orderBy('release_year');
     }
 
     public function createdAt($date)
