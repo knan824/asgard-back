@@ -29,7 +29,7 @@ class WishlistController extends Controller
 
         return response([
             'wishlist' => new WishlistResource($wishlist),
-            'message' => __('store'),
+            'message' => __('wishlists.store'),
         ]);
     }
 
@@ -41,7 +41,7 @@ class WishlistController extends Controller
         $wishlist->remove();
 
         return response([
-            'message' => __('delete'),
+            'message' => __('wishlists.delete'),
         ]);
     }
 }

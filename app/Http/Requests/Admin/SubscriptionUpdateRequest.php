@@ -54,9 +54,9 @@ class SubscriptionUpdateRequest extends FormRequest
     public function attributes():array
     {
         return [
-            'name' => __('Subscriptions.attributes.name'),
-            'price' => __('Subscriptions.attributes.price'),
-            'image' => __('Subscriptions.attributes.image'),
+            'name' => __('subscriptions.attributes.name'),
+            'price' => __('subscriptions.attributes.price'),
+            'image' => __('subscriptions.attributes.image'),
         ];
     }
 }

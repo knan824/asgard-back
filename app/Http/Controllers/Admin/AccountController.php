@@ -29,7 +29,7 @@ class AccountController extends Controller
         $account = $request->storeAccount();
 
         return response([
-            'message' =>  __('store'),
+            'message' =>  __('accounts.store'),
             'account' => new AccountResource($account),
         ]);
     }
@@ -52,7 +52,7 @@ class AccountController extends Controller
         $account = $request->updateAccount();
 
         return response([
-            'message' => __('update'),
+            'message' => __('accounts.update'),
             'account' => new AccountResource($account),
         ]);
     }
@@ -65,7 +65,7 @@ class AccountController extends Controller
         $account->remove();
 
         return response([
-            'message' => __('delete'),
+            'message' => __('accounts.delete'),
         ]);
     }
 }

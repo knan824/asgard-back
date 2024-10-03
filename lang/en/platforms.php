@@ -9,5 +9,9 @@ return [
     'attributes' => [
         'name' => 'Platform name',
         'image' => 'Platform image',
-    ]
+    ],
+
+    'errors' => [
+
+    ],
 ];

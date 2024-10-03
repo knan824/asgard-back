@@ -22,7 +22,7 @@ class GameController extends Controller
         $game = $request->storeGame();
 
         return response([
-            'message' =>  __('store'),
+            'message' =>  __('games.store'),
             'game' => new GameResource($game),
         ]);
     }
@@ -40,7 +40,7 @@ class GameController extends Controller
         $game = $request->updateGame();
 
         return response([
-            'message' =>  __('update'),
+            'message' =>  __('games.update'),
             'game' => new GameResource($game),
         ]);
     }
@@ -50,7 +50,7 @@ class GameController extends Controller
         $game->remove();
 
         return response([
-            'message' =>  __('delete'),
+            'message' =>  __('games.delete'),
         ]);
     }
 }

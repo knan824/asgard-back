@@ -15,5 +15,9 @@ return [
         'images' => 'Game images',
         'is_available' => 'Game availability',
         'is_visible' => 'Game visibility',
-    ]
+    ],
+
+    'errors' => [
+
+    ],
 ];

@@ -3,5 +3,8 @@
 return [
     'store' => 'Wishlist item added successfully',
     'delete' => 'Wishlist item removed successfully',
-    'already' => 'Item is already in your wishlist',
+
+    'errors' => [
+        'item_already_in_wishlist' => 'Item is already in your wishlist',
+    ],
 ];

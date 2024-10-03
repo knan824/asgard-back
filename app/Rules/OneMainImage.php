@@ -24,9 +24,9 @@ class OneMainImage implements ValidationRule
         if ($mainImagesCount === 1) return;
 
         if ($mainImagesCount > 1) {
-            abort(400, 'Only one main image is allowed');
+            abort(400, __('images.errors.one.main.image.max'));
         } else {
-            abort(400, 'At least one main image is required');
+            abort(400, __('images.errors.one.main.image.min'));
         }
     }
 }

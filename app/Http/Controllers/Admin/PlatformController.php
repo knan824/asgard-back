@@ -22,7 +22,7 @@ class PlatformController extends Controller
         $platforms = $request->storePlatform();
 
         return response([
-            'message' => __('store'),
+            'message' => __('platforms.store'),
             'platform' => new PlatformResource($platforms),
         ]);
     }
@@ -39,7 +39,7 @@ class PlatformController extends Controller
         $platform = $request->updatePlatform();
 
         return response([
-            'message' => __('update'),
+            'message' => __('platforms.update'),
             'platform' => new PlatformResource($platform),
         ]);
     }
@@ -49,7 +49,7 @@ class PlatformController extends Controller
         $platform->remove();
 
         return response([
-            'message' => __('delete'),
+            'message' => __('platforms.delete'),
         ]);
     }
 }

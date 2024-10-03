@@ -10,5 +10,9 @@ return [
         'name' => 'Subscription name',
         'price' => 'Subscription price',
         'image' => 'Subscription image',
-    ]
+    ],
+
+    'errors' => [
+
+    ],
 ];

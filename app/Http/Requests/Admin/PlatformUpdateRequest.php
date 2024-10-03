@@ -44,8 +44,8 @@ class PlatformUpdateRequest extends FormRequest
     public function attributes():array
     {
         return [
-            'name' => __('Platforms.attributes.name'),
-            'image' => __('Platforms.attributes.image'),
+            'name' => __('platforms.attributes.name'),
+            'image' => __('platforms.attributes.image'),
         ];
     }
 }

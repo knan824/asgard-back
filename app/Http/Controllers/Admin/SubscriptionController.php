@@ -25,7 +25,7 @@ class SubscriptionController extends Controller
         $subscription = $request->storeSubscription();
 
         return response([
-            'message' => __('store'),
+            'message' => __('subscriptions.store'),
             'subscription' => new SubscriptionResource($subscription),
         ]);
     }
@@ -42,7 +42,7 @@ class SubscriptionController extends Controller
         $subscription = $request->updateSubscription();
 
         return response([
-            'message' => __('update'),
+            'message' => __('subscriptions.update'),
             'subscription' => new SubscriptionResource($subscription),
         ]);
     }
@@ -51,12 +51,12 @@ class SubscriptionController extends Controller
     {
         if (! $subscription->delete()) {
             return response([
-                'message' => __('delete_failed'),
+                'message' => __('subscriptions.errors.delete_failed'),
             ], 500);
         }
 
         return response([
-            'message' => __('delete'),
+            'message' => __('subscriptions.delete'),
         ]);
     }
 }

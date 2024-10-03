@@ -38,7 +38,7 @@ class ModeUpdateRequest extends FormRequest
     public function attributes():array
     {
         return [
-            'name' => __('Modes.attributes.name'),
+            'name' => __('modes.attributes.name'),
         ];
     }
 }
