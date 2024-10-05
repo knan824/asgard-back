@@ -9,7 +9,6 @@ class WishlistFilter extends QueryFilter
     public function game($keyword)
     {
         return $this->builder->whereHas('game', function ($query) use ($keyword) {
-
             $query->where('name', 'LIKE', "%{$keyword}%");
         });
     }
@@ -17,7 +16,6 @@ class WishlistFilter extends QueryFilter
     public function user($userId)
     {
         return $this->builder->where('user_id', function($query) use ($userId){
-
             $query->where('user_id', $userId);
         });
     }
