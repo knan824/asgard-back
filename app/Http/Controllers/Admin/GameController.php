@@ -13,9 +13,9 @@ class GameController extends Controller
 {
     public function index(GameFilter $filter)
     {
-        $games = Game::filter($filter)->paginate();
+        $games = Game::with(['accounts', 'modes', 'platforms', 'images'])->filter($filter)->paginate();
 
-        return (GameResource::collection($games));
+        return GameResource::collection($games);
     }
 
     public function store(GameStoreRequest $request)
@@ -23,7 +23,7 @@ class GameController extends Controller
         $game = $request->storeGame();
 
         return response([
-            'message' => 'Game created successfully',
+            'message' =>  __('games.store'),
             'game' => new GameResource($game),
         ]);
     }
@@ -41,7 +41,7 @@ class GameController extends Controller
         $game = $request->updateGame();
 
         return response([
-            'message' => 'Game updated successfully',
+            'message' =>  __('games.update'),
             'game' => new GameResource($game),
         ]);
     }
@@ -51,7 +51,7 @@ class GameController extends Controller
         $game->remove();
 
         return response([
-            'message' => 'Game deleted successfully',
+            'message' =>  __('games.destroy'),
         ]);
     }
 }

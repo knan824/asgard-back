@@ -30,7 +30,7 @@ class ModeController extends Controller
 
         return response([
             'mode' => new ModeResource($mode),
-            'message' => 'Mode created successfully',
+            'message' => __('modes.store'),
         ]);
     }
 
@@ -53,7 +53,7 @@ class ModeController extends Controller
 
         return response([
             'mode' => new ModeResource($mode),
-            'message' => 'Mode updated successfully',
+            'message' => __('modes.update'),
         ]);
     }
 
@@ -64,12 +64,12 @@ class ModeController extends Controller
     {
         if (!$mode->remove()) {
             return response([
-                'message' => 'Mode cannot be deleted',
+                'message' => __('modes.errors.delete_failed'),
             ], 400);
         }
 
         return response([
-            'message' => 'Mode deleted successfully',
+            'message' => __('modes.destroy'),
         ]);
     }
 }

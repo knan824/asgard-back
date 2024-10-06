@@ -12,14 +12,14 @@ class GameController extends Controller
 {
     public function index(GameFilter $filter)
     {
-        $games = Game::filter($filter)->visible()->paginate();
+        $games = Game::with(['images', 'platforms', 'accounts', 'modes'])->filter($filter)->visible()->paginate();
 
-        return response(GameResource::collection($games));
+        return GameResource::collection($games);
     }
 
     public function show(Game $game)
     {
-        if(!$game->is_visible) throw new NotFoundHttpException;
+        if (! $game->is_visible) throw new NotFoundHttpException;
 
         return response([
             'game' => new GameResource($game),

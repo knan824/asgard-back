@@ -14,9 +14,9 @@ class SubscriptionController extends Controller
      */
     public function index(SubscriptionFilter $filter)
     {
-        $subscriptions = Subscription::filter($filter)->paginate();
+        $subscriptions = Subscription::with(['price', 'image'])->filter($filter)->paginate();
 
-        return response(SubscriptionResource::collection($subscriptions));
+        return SubscriptionResource::collection($subscriptions);
     }
 
     /**

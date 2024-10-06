@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class SubscriptionUpdateRequest extends FormRequest
@@ -31,22 +32,33 @@ class SubscriptionUpdateRequest extends FormRequest
 
     public function updateSubscription()
     {
-        $this->subscription->update($this->validated());
-        $this->subscription->price->update(['price' => $this->price]);
+        return DB::transaction(function () {
+            $this->subscription->update($this->validated());
+            $this->subscription->price->update(['price' => $this->price]);
 
         if ($this->exists('image')) {
             Storage::delete($this->subscription->image->path);
 
-            $path = $this->image->store('subscriptions');
-            $this->subscription->image()->update([
-                'path' => $path,
-                'is_main' => true,
-                'extension' => $this->image->extension(),
-                'size' => $this->image->getSize(),
-                'type' => 'photo',
-            ]);
-        }
+                $path = $this->image->store('subscriptions');
+                $this->subscription->image()->update([
+                    'path' => $path,
+                    'is_main' => true,
+                    'extension' => $this->image->extension(),
+                    'size' => $this->image->getSize(),
+                    'type' => 'photo',
+                ]);
+            }
 
-        return $this->subscription->refresh();
+            return $this->subscription->refresh();
+        });
+    }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('subscriptions.attributes.name'),
+            'price' => __('subscriptions.attributes.price'),
+            'image' => __('subscriptions.attributes.image'),
+        ];
     }
 }

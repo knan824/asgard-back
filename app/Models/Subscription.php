@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Subscription extends Model
 {
@@ -31,13 +32,15 @@ class Subscription extends Model
 
     public function remove()
     {
-        if($this->users()->count()) {
+        if ($this->users()->count()) {
             return false;
         }
 
-        $this->price()->delete();
-        $this->users()->detach();
-        $this->image()->delete();
-        return $this->delete();
+        return DB::transaction(function () {
+            $this->price()->delete();
+            $this->users()->detach();
+            $this->image()->delete();
+            return $this->delete();
+        });
     }
 }

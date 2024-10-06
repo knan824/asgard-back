@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Models\Subscription;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class SubscriptionStoreRequest extends FormRequest
 {
@@ -31,8 +32,9 @@ class SubscriptionStoreRequest extends FormRequest
 
     public function storeSubscription()
     {
-        $subscription = Subscription::create($this->validated());
-        $subscription->price()->create(['price' => $this->price]);
+        return DB::transaction(function () {
+            $subscription = Subscription::create($this->validated());
+            $subscription->price()->create(['price' => $this->price]);
 
         $path = $this->image->store('subscriptions');
         $subscription->image()->create([
@@ -43,6 +45,16 @@ class SubscriptionStoreRequest extends FormRequest
             'type' => 'photo',
         ]);
 
-        return $subscription;
+            return $subscription;
+        });
+    }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('subscriptions.attributes.name'),
+            'price' => __('subscriptions.attributes.price'),
+            'image' => __('subscriptions.attributes.image'),
+        ];
     }
 }

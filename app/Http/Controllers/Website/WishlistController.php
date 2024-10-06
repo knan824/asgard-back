@@ -6,6 +6,7 @@ use App\Filters\Website\WishlistFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\WishlistStoreRequest;
 use App\Http\Resources\Website\WishlistResource;
+use App\Models\User;
 use App\Models\Wishlist;
 
 class WishlistController extends Controller
@@ -15,7 +16,7 @@ class WishlistController extends Controller
      */
     public function index(WishlistFilter $filter)
     {
-        $wishlists = auth()->user()->wishlists()->filter($filter)->paginate();
+        $wishlists = auth()->user()->wishlists()->with('game')->filter($filter)->paginate();
 
         return WishlistResource::collection($wishlists);
     }
@@ -29,7 +30,7 @@ class WishlistController extends Controller
 
         return response([
             'wishlist' => new WishlistResource($wishlist),
-            'message' => 'Wishlist item added successfully',
+            'message' => __('wishlists.store'),
         ]);
     }
 
@@ -41,7 +42,7 @@ class WishlistController extends Controller
         $wishlist->remove();
 
         return response([
-            'message' => 'Wishlist item removed successfully',
+            'message' => __('wishlists.destroy'),
         ]);
     }
 }

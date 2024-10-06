@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PlatformUpdateRequest extends FormRequest
@@ -22,22 +23,32 @@ class PlatformUpdateRequest extends FormRequest
 
     public function updatePlatform()
     {
-        $this->platform->update($this->validated());
+        return DB::transaction(function () {
+            $this->platform->update($this->validated());
 
-        if ($this->exists('image')) {
-            Storage::delete($this->platform->image->path);
-            $this->platform->image()->delete();
+            if ($this->exists('image')) {
+                Storage::delete($this->platform->image->path);
+                $this->platform->image()->delete();
 
-            $path = $this->image->store('platforms');
-            $this->platform->image()->create([
-                'path' => $path,
-                'is_main' => true,
-                'extension' => $this->image->extension(),
-                'size' => $this->image->getSize(),
-                'type' => 'photo',
-            ]);
-        }
+                $path = $this->image->store('platforms');
+                $this->platform->image()->create([
+                    'path' => $path,
+                    'is_main' => true,
+                    'extension' => $this->image->extension(),
+                    'size' => $this->image->getSize(),
+                    'type' => 'photo',
+                ]);
+            }
 
-        return $this->platform->refresh();
+            return $this->platform->refresh();
+        });
+    }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('platforms.attributes.name'),
+            'image' => __('platforms.attributes.image'),
+        ];
     }
 }

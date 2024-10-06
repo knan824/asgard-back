@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Models\platform;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class PlatformStoreRequest extends FormRequest
 {
@@ -22,17 +23,27 @@ class PlatformStoreRequest extends FormRequest
 
     public function storePlatform()
     {
-       $platform = Platform::create($this->validated());
-       $path = $this->image->store('platforms');
+        return DB::transaction(function () {
+            $platform = Platform::create($this->validated());
+            $path = $this->image->store('platforms');
 
-        $platform->image()->create([
-            'path' => $path,
-            'is_main' => true,
-            'extension' => $this->image->extension(),
-            'size' => $this->image->getSize(),
-            'type' => 'photo',
-        ]);
+            $platform->image()->create([
+                'path' => $path,
+                'is_main' => true,
+                'extension' => $this->image->extension(),
+                'size' => $this->image->getSize(),
+                'type' => 'photo',
+            ]);
 
-       return $platform;
+            return $platform;
+        });
+    }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('platforms.attributes.name'),
+            'image' => __('platforms.attributes.image'),
+        ];
     }
 }

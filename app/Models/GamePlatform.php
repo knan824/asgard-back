@@ -11,6 +11,6 @@ class GamePlatform extends Model
 
     protected $fillable = [
         'platform_id',
-        'user_id',
+        'game_id',
     ];
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Game extends Model
 {
@@ -48,6 +49,16 @@ class Game extends Model
         return $this->hasMany(Wishlist::class);
     }
 
+    public function accounts()
+    {
+        return $this->belongsToMany(Account::class);
+    }
+
+    public function validAccounts()
+    {
+        return $this->accounts()->blocked(false)->sold(false)->hasValidUser();
+    }
+
     public function getMainImageAttribute()
     {
         return $this->images()->where('is_main', true)->first();
@@ -65,10 +76,11 @@ class Game extends Model
 
     public function remove()
     {
-//        $this->price->delete();
-        $this->users()->detach();
-        $this->wishlists()->delete();
-        $this->images()->delete();
-        $this->delete();
+        return DB::transaction(function () {
+            $this->users()->detach();
+            $this->wishlists()->delete();
+            $this->images()->delete();
+            $this->delete();
+        });
     }
 }

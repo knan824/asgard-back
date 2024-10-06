@@ -15,9 +15,9 @@ class WishlistController extends Controller
      */
     public function index(WishlistFilter $filter)
     {
-        $wishlists = Wishlist::filter($filter)->paginate();
+        $wishlists = Wishlist::with(['game'])->filter($filter)->paginate();
 
-        return response(WishlistResource::collection($wishlists));
+        return WishlistResource::collection($wishlists);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Platform extends Model
 {
@@ -19,6 +20,11 @@ class Platform extends Model
         $this->belongsToMany(Game::class);
     }
 
+    public function accounts()
+    {
+        return $this->belongsToMany(Account::class);
+    }
+
     public function image()
     {
         return $this->morphOne(Image::class, 'mediable');
@@ -26,7 +32,9 @@ class Platform extends Model
 
     public function remove()
     {
-        $this->image()->delete();
-        $this->delete();
+        return DB::transaction(function () {
+            $this->image()->delete();
+            $this->delete();
+        });
     }
 }

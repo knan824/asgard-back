@@ -13,9 +13,9 @@ class PlatformController extends Controller
 {
     public function index(PlatformFilter $filter)
     {
-        $platforms = Platform::filter($filter)->paginate();
+        $platforms = Platform::with(['image'])->filter($filter)->paginate();
 
-        return response(PlatformResource::collection($platforms));
+        return PlatformResource::collection($platforms);
     }
 
     public function store(PlatformStoreRequest $request)
@@ -23,7 +23,7 @@ class PlatformController extends Controller
         $platforms = $request->storePlatform();
 
         return response([
-            'message' => 'Platform created successfully',
+            'message' => __('platforms.store'),
             'platform' => new PlatformResource($platforms),
         ]);
     }
@@ -40,7 +40,7 @@ class PlatformController extends Controller
         $platform = $request->updatePlatform();
 
         return response([
-            'message' => 'Platform updated successfully',
+            'message' => __('platforms.update'),
             'platform' => new PlatformResource($platform),
         ]);
     }
@@ -50,7 +50,7 @@ class PlatformController extends Controller
         $platform->remove();
 
         return response([
-            'message' => 'Platform deleted successfully',
+            'message' => __('platforms.destroy'),
         ]);
     }
 }
