@@ -74,8 +74,8 @@ class AccountUpdateRequest extends FormRequest
     {
         return [
             'password' => __('accounts.attributes.password'),
-            'platform' => __('accounts.attributes.platform'),
-            'platform.*' => __('accounts.attributes.platform_exists'),
+            'platform' => __('accounts.attributes.platforms'),
+            'platform.*' => __('accounts.attributes.platform'),
             'image' => __('accounts.attributes.image'),
             'is_primary' => __('accounts.attributes.is_primary'),
             'is_sold' => __('accounts.attributes.is_sold'),

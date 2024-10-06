@@ -71,8 +71,8 @@ class AccountStoreRequest extends FormRequest
         return [
             'psn_email' => __('accounts.attributes.psn_email'),
             'password' => __('accounts.attributes.password'),
-            'platform' => __('accounts.attributes.platform'),
-            'platform.*' => __('accounts.attributes.platform_exists'),
+            'platform' => __('accounts.attributes.platforms'),
+            'platform.*' => __('accounts.attributes.platform'),
             'image' => __('accounts.attributes.image'),
             'is_primary' => __('accounts.attributes.is_primary'),
         ];

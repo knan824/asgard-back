@@ -6,12 +6,12 @@ return [
     'update' => 'Account updated successfully',
 
     'attributes' => [
-        'psn_email' => 'playStation Network email',
-        'password' => 'playStation Network password',
+        'psn_email' => 'playStation network email',
+        'password' => 'playStation network password',
+        'platforms' => 'playstation platform',
         'platform' => 'playstation platform',
-        'platform_exists' => 'playstation platform',
         'image' => 'account image',
-        'is_primary' => 'primary Playstation Account status',
+        'is_primary' => 'primary playstation account status',
         'is_sold' => 'account is sold status',
     ],
 
