@@ -18,6 +18,7 @@ class SubscriptionFactory extends Factory
     {
         return [
             'name' => fake()->word(),
+            'slug' => fake()->slug(),
         ];
     }
 }

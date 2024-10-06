@@ -17,6 +17,7 @@ class GameSimpleResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->slug,
             'image' => ImageResource::make($this->MainImage),
             'platforms' => PlatformResource::collection($this->platforms),
             'modes' => ModeResource::collection($this->modes),

@@ -6,6 +6,7 @@ use App\Models\Game;
 use App\Rules\OneMainImage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class GameStoreRequest extends FormRequest
 {
@@ -42,8 +43,15 @@ class GameStoreRequest extends FormRequest
 
     public function storeGame()
     {
+//        dd([
+//            ...$this->validated(),
+//            'slug' => $this->name,
+//        ]);
         return DB::transaction(function () {
-            $game = Game::create($this->validated());
+            $game = Game::create([
+                ...$this->validated(),
+                'slug' => $this->name,
+            ]);
             $game->platforms()->attach($this->platform);
             $game->modes()->attach($this->mode);
 

@@ -33,20 +33,23 @@ class SubscriptionStoreRequest extends FormRequest
     public function storeSubscription()
     {
         return DB::transaction(function () {
-            $subscription = Subscription::create($this->validated());
+            $subscription = Subscription::create([
+                ...$this->validated(),
+                'slug' => $this->name,
+            ]);
             $subscription->price()->create(['price' => $this->price]);
 
-        $path = $this->image->store('subscriptions');
-        $subscription->image()->create([
-            'path' => $path,
-            'is_main' => true,
-            'extension' => $this->image->extension(),
-            'size' => $this->image->getSize(),
-            'type' => 'photo',
-        ]);
+            $path = $this->image->store('subscriptions');
+            $subscription->image()->create([
+                'path' => $path,
+                'is_main' => true,
+                'extension' => $this->image->extension(),
+                'size' => $this->image->getSize(),
+                'type' => 'photo',
+            ]);
 
             return $subscription;
-        });
+       });
     }
 
     public function attributes():array

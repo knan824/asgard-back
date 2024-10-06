@@ -31,6 +31,7 @@ class ModeStoreRequest extends FormRequest
     {
         return Mode::create([
             'name' => $this->name,
+            'slug' => $this->name,
         ]);
     }
 
