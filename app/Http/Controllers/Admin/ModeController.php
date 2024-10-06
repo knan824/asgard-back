@@ -68,7 +68,7 @@ class ModeController extends Controller
         }
 
         return response([
-            'message' => __('modes.delete'),
+            'message' => __('modes.destroy'),
         ]);
     }
 }

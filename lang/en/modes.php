@@ -2,11 +2,11 @@
 
 return [
     'store' => 'Mode stored successfully',
-    'delete' => 'Mode deleted successfully',
+    'destroy' => 'Mode deleted successfully',
     'update' => 'Mode updated successfully',
 
     'attributes' => [
-        'name' => 'Mode name',
+        'name' => 'mode name',
     ],
 
      'errors' => [

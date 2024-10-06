@@ -66,8 +66,12 @@ class GameStoreRequest extends FormRequest
             'release_year' => __('games.attributes.release_year'),
             'developer' => __('games.attributes.developer'),
             'mode' => __('games.attributes.mode'),
+            'mode.*' => __('games.attributes.mode_exists'),
             'platform' => __('games.attributes.platform'),
+            'platform.*' => __('games.attributes.platform_exists'),
             'images' => __('games.attributes.images'),
+            'images.*.image' => __('games.attributes.image'),
+            'images.*.is_main' => __('games.attributes.image_is_main'),
             'is_available' => __('games.attributes.available'),
             'is_visible' => __('games.attributes.visible'),
         ];

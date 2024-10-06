@@ -65,7 +65,7 @@ class AccountController extends Controller
         $account->remove();
 
         return response([
-            'message' => __('accounts.delete'),
+            'message' => __('accounts.destroy'),
         ]);
     }
 }

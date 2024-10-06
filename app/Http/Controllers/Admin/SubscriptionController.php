@@ -51,12 +51,12 @@ class SubscriptionController extends Controller
     {
         if (! $subscription->delete()) {
             return response([
-                'message' => __('subscriptions.errors.delete_failed'),
+                'message' => __('subscriptions.errors.destroy_failed'),
             ], 500);
         }
 
         return response([
-            'message' => __('subscriptions.delete'),
+            'message' => __('subscriptions.destroy'),
         ]);
     }
 }

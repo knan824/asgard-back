@@ -26,11 +26,9 @@ class AccountUpdateRequest extends FormRequest
         $accountPlatformRule = function ($attribute, $value, $fail) {
             $isPrimary = $this->is_primary ?? $this->account->is_primary;   //keeps current primary choice if no new is added
             if ($isPrimary && count($value) > 2) {
-                $fail([
-                    'message' => __('accounts.errors.primary_account_max_platforms')]);
+                $fail([__('accounts.errors.primary_account_max_platforms')]);
             } elseif (!$isPrimary && count($value) > 1) {
-                $fail([
-                    'message' => __('accounts.errors.secondary_account_max_platforms')]);
+                $fail([__('accounts.errors.secondary_account_max_platforms')]);
             }
         };
 
@@ -75,12 +73,13 @@ class AccountUpdateRequest extends FormRequest
     public function attributes():array
     {
         return [
-            'psn_email' => __('Accounts.attributes.psn_email'),
-            'password' => __('Accounts.attributes.password'),
-            'platform' => __('Accounts.attributes.platform'),
-            'image' => __('Accounts.attributes.image'),
-            'is_primary' => __('Accounts.attributes.is_primary'),
-            'is_sold' => __('Accounts.attributes.is_sold'),
+            'psn_email' => __('accounts.attributes.psn_email'),
+            'password' => __('accounts.attributes.password'),
+            'platform' => __('accounts.attributes.platform'),
+            'platform.*' => __('accounts.attributes.platform_exists'),
+            'image' => __('accounts.attributes.image'),
+            'is_primary' => __('accounts.attributes.is_primary'),
+            'is_sold' => __('accounts.attributes.is_sold'),
         ];
     }
 }

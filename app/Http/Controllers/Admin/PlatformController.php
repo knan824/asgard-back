@@ -49,7 +49,7 @@ class PlatformController extends Controller
         $platform->remove();
 
         return response([
-            'message' => __('platforms.delete'),
+            'message' => __('platforms.destroy'),
         ]);
     }
 }

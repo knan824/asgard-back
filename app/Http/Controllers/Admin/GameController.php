@@ -50,7 +50,7 @@ class GameController extends Controller
         $game->remove();
 
         return response([
-            'message' =>  __('games.delete'),
+            'message' =>  __('games.destroy'),
         ]);
     }
 }

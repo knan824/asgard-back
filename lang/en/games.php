@@ -2,22 +2,22 @@
 
 return [
     'store' => 'Game stored successfully',
-    'delete' => 'Game deleted successfully',
+    'destroy' => 'Game deleted successfully',
     'update' => 'Game updated successfully',
 
 
     'attributes' => [
-        'name' => 'Game name',
-        'release_year' => 'Game release year',
-        'developer' => 'Game developer',
-        'mode' => 'Game mode',
-        'platform' => 'Game platform',
-        'images' => 'Game images',
-        'is_available' => 'Game availability',
-        'is_visible' => 'Game visibility',
-    ],
-
-    'errors' => [
-
+        'name' => 'game name',
+        'release_year' => 'game release year',
+        'developer' => 'game developer',
+        'mode' => 'game mode',
+        'mode_exists' => 'game mode',
+        'platform' => 'game platform',
+        'platform_exists' => 'game platform',
+        'images' => 'game images',
+        'image' => 'game image',
+        'image_is_main' => 'game main image',
+        'is_available' => 'game availability',
+        'is_visible' => 'game visibility',
     ],
 ];

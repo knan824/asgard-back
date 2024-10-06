@@ -41,7 +41,7 @@ class WishlistController extends Controller
         $wishlist->remove();
 
         return response([
-            'message' => __('wishlists.delete'),
+            'message' => __('wishlists.destroy'),
         ]);
     }
 }
