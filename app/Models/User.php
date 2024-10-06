@@ -15,6 +15,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];
@@ -51,6 +52,11 @@ class User extends Authenticatable
     public function images()
     {
         return $this->morphMany(Image::class, 'mediable');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 
     public function remove()
