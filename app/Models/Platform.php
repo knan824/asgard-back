@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use App\Traits\Filterable;
+use App\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Platform extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, Filterable, Sluggable;
 
     protected $fillable = [
-        'name'
+        'name',
+        'slug',
     ];
 
     public function games()

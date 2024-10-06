@@ -18,6 +18,7 @@ class SubscriptionResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->slug,
             'price' => $this->price->price,
             'image' => ImageResource::make($this->image),
             'created_at' => $this->created_at,

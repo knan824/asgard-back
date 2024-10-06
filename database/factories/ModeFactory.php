@@ -18,6 +18,7 @@ class ModeFactory extends Factory
     {
         return [
             'name' => fake()->word,
+            'slug' => fake()->slug(),
         ];
     }
 }
