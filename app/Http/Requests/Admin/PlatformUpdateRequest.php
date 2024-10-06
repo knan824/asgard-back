@@ -43,4 +43,12 @@ class PlatformUpdateRequest extends FormRequest
             return $this->platform->refresh();
         });
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('platforms.attributes.name'),
+            'image' => __('platforms.attributes.image'),
+        ];
+    }
 }

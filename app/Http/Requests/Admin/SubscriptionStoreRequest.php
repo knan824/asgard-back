@@ -48,4 +48,13 @@ class SubscriptionStoreRequest extends FormRequest
             return $subscription;
         });
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('subscriptions.attributes.name'),
+            'price' => __('subscriptions.attributes.price'),
+            'image' => __('subscriptions.attributes.image'),
+        ];
+    }
 }

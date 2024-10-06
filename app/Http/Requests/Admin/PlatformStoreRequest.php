@@ -38,4 +38,12 @@ class PlatformStoreRequest extends FormRequest
             return $platform;
         });
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('platforms.attributes.name'),
+            'image' => __('platforms.attributes.image'),
+        ];
+    }
 }

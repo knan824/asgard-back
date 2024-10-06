@@ -26,9 +26,9 @@ class AccountStoreRequest extends FormRequest
         $accountPlatformRule = function ($attribute, $value, $fail) {
             $isPrimary = $this->is_primary;
             if ($isPrimary && count($value) > 2) {
-                $fail('A primary account can have a maximum of two platforms.');
+                $fail([__('accounts.errors.primary_account_max_platforms')]);
             } elseif (!$isPrimary && count($value) > 1) {
-                $fail('A secondary account can have a maximum of one platform.');
+                $fail([__('accounts.errors.secondary_account_max_platforms')]);
             }
         };
 
@@ -64,5 +64,17 @@ class AccountStoreRequest extends FormRequest
 
             return $account->refresh();
         });
+    }
+
+    public function attributes():array
+    {
+        return [
+            'psn_email' => __('accounts.attributes.psn_email'),
+            'password' => __('accounts.attributes.password'),
+            'platform' => __('accounts.attributes.platforms'),
+            'platform.*' => __('accounts.attributes.platform'),
+            'image' => __('accounts.attributes.image'),
+            'is_primary' => __('accounts.attributes.is_primary'),
+        ];
     }
 }

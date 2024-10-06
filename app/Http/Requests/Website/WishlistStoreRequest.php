@@ -31,7 +31,7 @@ class WishlistStoreRequest extends FormRequest
     {
         if (auth()->user()->wishlists()->where('game_id', $this->game_id)->exists()) {
             return response([
-                'message' => 'Game already in wishlist',
+                'message' => __('wishlists.errors.item_already_in_wishlist'),
             ], 400);
         }
 

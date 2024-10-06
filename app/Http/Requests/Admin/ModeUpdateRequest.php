@@ -34,4 +34,11 @@ class ModeUpdateRequest extends FormRequest
 
         return $this->mode->refresh();
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('modes.attributes.name'),
+        ];
+    }
 }

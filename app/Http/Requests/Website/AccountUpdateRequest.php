@@ -26,9 +26,9 @@ class AccountUpdateRequest extends FormRequest
         $accountPlatformRule = function ($attribute, $value, $fail) {
             $isPrimary = $this->is_primary ?? $this->account->is_primary; //keeps current primary choice if no new is added
             if ($isPrimary && count($value) > 2) {
-                $fail('A primary account can have a maximum of two platforms.');
+                $fail(__('accounts.errors.primary_account_max_platforms'));
             } elseif (!$isPrimary && count($value) > 1) {
-                $fail('A secondary account can have a maximum of one platform.');
+                $fail(__('accounts.errors.secondary_account_max_platforms'));
             }
         };
 
@@ -65,5 +65,16 @@ class AccountUpdateRequest extends FormRequest
 
             return $this->account->refresh();
         });
+    }
+
+    public function attributes():array
+    {
+        return [
+            'password' => __('accounts.attributes.password'),
+            'platform' => __('accounts.attributes.platforms'),
+            'platform.*' => __('accounts.attributes.platform'),
+            'image' => __('accounts.attributes.image'),
+            'is_primary' => __('accounts.attributes.is_primary'),
+        ];
     }
 }

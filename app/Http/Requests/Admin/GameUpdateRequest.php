@@ -61,4 +61,22 @@ class GameUpdateRequest extends FormRequest
             return $this->game->refresh();
         });
     }
+
+    public function attributes():array
+    {
+        return [
+            'name' => __('games.attributes.name'),
+            'release_year' => __('games.attributes.release_year'),
+            'developer' => __('games.attributes.developer'),
+            'mode' => __('games.attributes.modes'),
+            'mode.*' => __('games.attributes.mode'),
+            'platform' => __('games.attributes.platforms'),
+            'platform.*' => __('games.attributes.platform'),
+            'images' => __('games.attributes.images'),
+            'images.*.image' => __('games.attributes.image'),
+            'images.*.is_main' => __('games.attributes.image_is_main'),
+            'is_available' => __('games.attributes.available'),
+            'is_visible' => __('games.attributes.visible'),
+        ];
+    }
 }
