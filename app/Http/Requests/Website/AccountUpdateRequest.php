@@ -72,7 +72,6 @@ class AccountUpdateRequest extends FormRequest
     public function attributes():array
     {
         return [
-            'psn_email' => __('accounts.attributes.psn_email'),
             'password' => __('accounts.attributes.password'),
             'platform' => __('accounts.attributes.platform'),
             'platform.*' => __('accounts.attributes.platform_exists'),
