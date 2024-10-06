@@ -36,9 +36,8 @@ class SubscriptionUpdateRequest extends FormRequest
             $this->subscription->update($this->validated());
             $this->subscription->price->update(['price' => $this->price]);
 
-            if ($this->exists('image')) {
-                Storage::delete($this->subscription->image->path);
-                $this->subscription->image()->delete();
+        if ($this->exists('image')) {
+            Storage::delete($this->subscription->image->path);
 
                 $path = $this->image->store('subscriptions');
                 $this->subscription->image()->update([

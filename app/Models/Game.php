@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Game extends Model
 {
-    use HasFactory;
+    use HasFactory, Filterable;
 
     protected $fillable = [
         'name',
@@ -63,9 +64,14 @@ class Game extends Model
         return $this->images()->where('is_main', true)->first();
     }
 
-    public function scopeVisible($query, bool $visible = true)
+    public function scopeVisible($query, bool $state = true)
     {
-        return $query->where('is_visible', $visible);
+        return $query->where('is_visible', $state);
+    }
+
+    public function scopeAvailable($query, bool $state = true)
+    {
+        return $query->where('is_available', $state);
     }
 
     public function remove()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\Admin\SubscriptionFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SubscriptionStoreRequest;
 use App\Http\Requests\Admin\SubscriptionUpdateRequest;
@@ -13,9 +14,9 @@ class SubscriptionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SubscriptionFilter $filter)
     {
-        $subscriptions = Subscription::with(['price', 'image'])->paginate();
+        $subscriptions = Subscription::with(['price', 'image'])->filter($filter)->paginate();
 
         return SubscriptionResource::collection($subscriptions);
     }

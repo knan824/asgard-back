@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Filters\Website\ModeFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Website\ModeResource;
 use App\Models\Mode;
@@ -11,11 +12,11 @@ class ModeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ModeFilter $filter)
     {
-        $modes = Mode::paginate();
+        $modes = Mode::filter($filter)->paginate();
 
-        return ModeResource::collection($modes);
+        return (ModeResource::collection($modes));
     }
 
     /**

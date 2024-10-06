@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Filters\Website\GameFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Website\GameResource;
 use App\Models\Game;
@@ -9,9 +10,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GameController extends Controller
 {
-    public function index()
+    public function index(GameFilter $filter)
     {
-        $games = Game::with(['images', 'platforms', 'accounts', 'modes'])->paginate();
+        $games = Game::with(['images', 'platforms', 'accounts', 'modes'])->filter($filter)->visible()->paginate();
 
         return GameResource::collection($games);
     }

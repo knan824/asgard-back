@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\Admin\GameFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GameStoreRequest;
 use App\Http\Requests\Admin\GameUpdateRequest;
@@ -10,9 +11,9 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
-    public function index()
+    public function index(GameFilter $filter)
     {
-        $games = Game::with(['accounts', 'modes', 'platforms', 'images'])->paginate();
+        $games = Game::with(['accounts', 'modes', 'platforms', 'images'])->filter($filter)->paginate();
 
         return GameResource::collection($games);
     }

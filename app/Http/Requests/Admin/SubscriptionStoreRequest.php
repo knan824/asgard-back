@@ -36,14 +36,14 @@ class SubscriptionStoreRequest extends FormRequest
             $subscription = Subscription::create($this->validated());
             $subscription->price()->create(['price' => $this->price]);
 
-            $path = $this->image->store('subscriptions');
-            $subscription->image()->create([
-                'path' => $path,
-                'is_main' => true,
-                'extension' => $this->image->extension(),
-                'size' => $this->image->getSize(),
-                'type' => 'photo',
-            ]);
+        $path = $this->image->store('subscriptions');
+        $subscription->image()->create([
+            'path' => $path,
+            'is_main' => true,
+            'extension' => $this->image->extension(),
+            'size' => $this->image->getSize(),
+            'type' => 'photo',
+        ]);
 
             return $subscription;
         });

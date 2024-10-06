@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\Admin\ModeFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ModeStoreRequest;
 use App\Http\Requests\Admin\ModeUpdateRequest;
@@ -13,9 +14,9 @@ class ModeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ModeFilter $filter)
     {
-        $modes = Mode::paginate();
+        $modes = Mode::filter($filter)->paginate();
 
         return ModeResource::collection($modes);
     }
