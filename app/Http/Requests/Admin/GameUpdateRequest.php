@@ -39,24 +39,7 @@ class GameUpdateRequest extends FormRequest
             $this->game->platforms()->sync($this->platform);
             $this->game->modes()->sync($this->mode);
 
-        if ($this->exists('images')) {
-            if ($this->game->images->count() > 0) {
-                foreach($this->game->images as $image) {
-                    Storage::delete($image->path);
-                }
-                $this->game->images()->delete();
-            }
-            foreach ($this->images as $imageFile) {
-                $path = $imageFile['image']->store('games');
-                $this->game->images()->create([
-                    'path' => $path,
-                    'is_main' => $imageFile['is_main'] ?? false,
-                    'extension' => $imageFile['image']->extension(),
-                    'size' => $imageFile['image']->getSize(),
-                    'type' => 'photo',
-                ]);
-            }
-        }
+            if ($this->exists('images')) $this->game->replaceMedia($this->images, 'games');
 
             return $this->game->refresh();
         });

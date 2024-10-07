@@ -55,15 +55,7 @@ class AccountUpdateRequest extends FormRequest
             $this->account->platforms()->sync($this->platform);
 
             if ($this->exists('image')) {
-                Storage::delete($this->account->image->path);
-                $path = $this->image->store('accounts');
-                $this->account->image()->update([
-                    'path' => $path,
-                    'is_main' => true,
-                    'extension' => $this->image->extension(),
-                    'size' => $this->image->getSize(),
-                    'type' => 'photo',
-                ]);
+                $this->account->replaceMedia($this->image);
             }
 
             return $this->account->refresh();

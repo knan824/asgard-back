@@ -39,14 +39,7 @@ class SubscriptionStoreRequest extends FormRequest
             ]);
             $subscription->price()->create(['price' => $this->price]);
 
-            $path = $this->image->store('subscriptions');
-            $subscription->image()->create([
-                'path' => $path,
-                'is_main' => true,
-                'extension' => $this->image->extension(),
-                'size' => $this->image->getSize(),
-                'type' => 'photo',
-            ]);
+            $subscription->addMedia($this->image, 'subscriptions');
 
             return $subscription;
        });

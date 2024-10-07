@@ -43,10 +43,6 @@ class GameStoreRequest extends FormRequest
 
     public function storeGame()
     {
-//        dd([
-//            ...$this->validated(),
-//            'slug' => $this->name,
-//        ]);
         return DB::transaction(function () {
             $game = Game::create([
                 ...$this->validated(),
@@ -55,22 +51,13 @@ class GameStoreRequest extends FormRequest
             $game->platforms()->attach($this->platform);
             $game->modes()->attach($this->mode);
 
-            foreach ($this->images as $imageData) {
-                $path = $imageData['image']->store('games');
-                $game->images()->create([
-                    'path' => $path,
-                    'is_main' => $imageData['is_main'],
-                    'extension' => $imageData['image']->extension(),
-                    'size' => $imageData['image']->getSize(),
-                    'type' => 'photo',
-                ]);
-            }
+            $game->addManyMedia($this->images, 'games');
 
             return $game;
         });
     }
 
-    public function attributes():array
+    public function attributes(): array
     {
         return [
             'name' => __('games.attributes.name'),

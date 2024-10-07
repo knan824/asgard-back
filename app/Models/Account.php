@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Mediable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 
 class Account extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Mediable;
 
     protected $fillable = [
         'user_id',
@@ -39,11 +39,6 @@ class Account extends Model
     public function platforms()
     {
         return $this->belongsToMany(Platform::class);
-    }
-
-    public function image()
-    {
-        return $this->morphOne(Image::class, 'mediable');
     }
 
     public function setPasswordAttribute(string $password)
@@ -80,11 +75,6 @@ class Account extends Model
 
     public function remove()
     {
-        return DB::transaction(function () {
-            $this->games()->detach();
-            $this->platforms()->detach();
-            $this->image()->delete();
-            $this->delete();
-        });
+        return $this->delete();
     }
 }

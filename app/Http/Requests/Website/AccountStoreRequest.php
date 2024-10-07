@@ -50,17 +50,8 @@ class AccountStoreRequest extends FormRequest
                 'psn_email' => $this->psn_email,
                 'password' => $this->password,
                 'is_primary' => $this->is_primary,
-            ]);
+            ])->addMedia($this->image, 'accounts');;
             $account->platforms()->attach($this->platform);
-
-            $path = $this->image->store('accounts');
-            $account->image()->create([
-                'path' => $path,
-                'is_main' => true,
-                'extension' => $this->image->extension(),
-                'size' => $this->image->getSize(),
-                'type' => 'photo',
-            ]);
 
             return $account->refresh();
         });
