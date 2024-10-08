@@ -31,7 +31,7 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.exists' => 'Invalid credentials',
+            'email.exists' => __('users.errors.invalid_credentials'),
         ];
     }
 
@@ -41,13 +41,13 @@ class LoginRequest extends FormRequest
 
         if (!auth()->attempt($credentials, $this->input('remember', false))) {
             return response()->json([
-                'message' => 'Invalid credentials',
+                'message' => __('users.errors.invalid_credentials'),
             ], 401);
         }
 
         if (auth()->user()->is_blocked) {
             return response()->json([
-                'message' => 'Your Account is blocked. Please contact support.',
+                'message' => __('users.errors.account_blocked'),
             ], 401);
         }
 
