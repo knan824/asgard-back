@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Filters\Website\AccountUserFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Website\AccountStoreRequest;
 use App\Http\Requests\Website\AccountUpdateRequest;
@@ -15,9 +16,9 @@ class AccountUserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(AccountUserFilter $filter)
     {
-        $accounts = auth()->user()->accounts()->with(['image', 'games', 'platforms'])->paginate();
+        $accounts = auth()->user()->accounts()->with(['image', 'games', 'platforms'])->filter($filter)->paginate();
 
         return AccountUserResource::collection($accounts);
     }
