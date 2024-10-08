@@ -18,7 +18,7 @@ class GameUpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string|max:255|min:2|unique:games,name,' . $this->game->id,
-            'release_year' => 'sometimes|date|date_format:Y-m-d|after:2014-01-01',
+            'release_year' => 'sometimes|date|date_format:Y-m-d|after:1995-01-01',
             'developer' => 'sometimes|string|max:255|min:2',
             'mode' => 'sometimes|array|min:1',
             'mode.*' => 'integer|exists:modes,id|required_with:mode',
