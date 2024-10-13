@@ -27,17 +27,7 @@ class PlatformUpdateRequest extends FormRequest
             $this->platform->update($this->validated());
 
             if ($this->exists('image')) {
-                Storage::delete($this->platform->image->path);
-                $this->platform->image()->delete();
-
-                $path = $this->image->store('platforms');
-                $this->platform->image()->create([
-                    'path' => $path,
-                    'is_main' => true,
-                    'extension' => $this->image->extension(),
-                    'size' => $this->image->getSize(),
-                    'type' => 'photo',
-                ]);
+                $this->platform->replaceMedia($this->image);
             }
 
             return $this->platform->refresh();

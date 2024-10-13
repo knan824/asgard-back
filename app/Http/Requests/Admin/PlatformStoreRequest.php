@@ -24,21 +24,10 @@ class PlatformStoreRequest extends FormRequest
     public function storePlatform()
     {
         return DB::transaction(function () {
-            $platform = Platform::create([
+            return Platform::create([
                 ...$this->validated(),
                 'slug' => $this->name,
-            ]);
-            $path = $this->image->store('platforms');
-
-            $platform->image()->create([
-                'path' => $path,
-                'is_main' => true,
-                'extension' => $this->image->extension(),
-                'size' => $this->image->getSize(),
-                'type' => 'photo',
-            ]);
-
-            return $platform;
+            ])->addMedia($this->image, 'platforms');
         });
     }
 

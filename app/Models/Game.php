@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Filterable;
+use App\Traits\Mediable;
 use App\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class Game extends Model
 {
-    use HasFactory, Filterable, Sluggable;
+    use HasFactory, Filterable, Sluggable, Mediable;
 
     protected $fillable = [
         'name',
@@ -41,11 +42,6 @@ class Game extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function images()
-    {
-        return $this->morphMany(Image::class, 'mediable');
-    }
-
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
@@ -59,11 +55,6 @@ class Game extends Model
     public function validAccounts()
     {
         return $this->accounts()->blocked(false)->sold(false)->hasValidUser();
-    }
-
-    public function getMainImageAttribute()
-    {
-        return $this->images()->where('is_main', true)->first();
     }
 
     public function scopeVisible($query, bool $state = true)
@@ -81,7 +72,7 @@ class Game extends Model
         return DB::transaction(function () {
             $this->users()->detach();
             $this->wishlists()->delete();
-            $this->images()->delete();
+            $this->removeMedia();
             $this->delete();
         });
     }
