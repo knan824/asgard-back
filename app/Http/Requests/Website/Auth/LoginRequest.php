@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Website\Auth;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -22,16 +23,15 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'exists:users,email'],
+            'email' => ['required', 'string', function ($attribute, $value, $fail) {
+                $isEmail = filter_var($value, FILTER_VALIDATE_EMAIL);
+                $exists = $isEmail ? User::where('email', $value)->exists() : User::where('username', $value)->exists();
+                if (!$exists) {
+                    $fail(__('users.errors.invalid_credentials'));
+                }
+            }],
             'password' => ['required', 'string'],
             'remember' => ['boolean'],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'email.exists' => 'Invalid credentials',
         ];
     }
 
@@ -40,22 +40,25 @@ class LoginRequest extends FormRequest
         $credentials = $this->only('email', 'password');
 
         if (!auth()->attempt($credentials, $this->input('remember', false))) {
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ], 401);
+            abort(401, __('users.errors.invalid_credentials'));
         }
 
         if (auth()->user()->is_blocked) {
-            return response()->json([
-                'message' => 'Your Account is blocked. Please contact support.',
-            ], 401);
+            abort(401,  __('users.errors.blocked_account'));
         }
-
-        $this->session()->regenerate();
 
         return [
             'user' => auth()->user(),
             'token' => auth()->user()->createToken('api_token')->plainTextToken,
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'email' => __('users.attributes.email'),
+            'password' => __('users.attributes.password'),
+            'remember' => __('users.attributes.remember'),
         ];
     }
 }
