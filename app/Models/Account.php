@@ -67,9 +67,9 @@ class Account extends Model
         return $query->where('is_sold', $sold);
     }
 
-    public function scopePrimary($query, $Primary = true)
+    public function scopePrimary($query, $primary = true)
     {
-        return $query->where('is_primary', $Primary);
+        return $query->where('is_primary', $primary);
     }
 
     public function scopeHasValidUser($query)
