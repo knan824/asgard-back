@@ -55,7 +55,7 @@ class AccountUserController extends Controller
     {
         if (! $account->belongsToLoggedUser($user)) throw new NotFoundHttpException;
 
-        if ($account->is_sold) return response(['message' => "Can't update your account when it is rented"], 403);
+        if ($account->is_sold) return response(['message' => __('accounts.errors.account_sold')], 403);
 
         $account = $request->updateAccount();
 

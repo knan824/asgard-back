@@ -18,5 +18,6 @@ return [
     'errors' => [
         'primary_account_max_platforms' => 'A primary account can have a maximum of two platforms.',
         'secondary_account_max_platforms' => 'A secondary account can have a maximum of one platform.',
+        'account_sold' => "Can't update your account when it is rented.",
     ],
 ];
