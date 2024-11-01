@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class Account extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, Filterable, SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -63,7 +64,12 @@ class Account extends Model
 
     public function scopeSold($query, $sold = true)
     {
-        return $query->where('is_sold', false);
+        return $query->where('is_sold', $sold);
+    }
+
+    public function scopePrimary($query, $primary = true)
+    {
+        return $query->where('is_primary', $primary);
     }
 
     public function scopeHasValidUser($query)

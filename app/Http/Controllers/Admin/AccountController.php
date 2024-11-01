@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\Admin\AccountFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AccountStoreRequest;
 use App\Http\Requests\Admin\AccountUpdateRequest;
@@ -14,9 +15,9 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(AccountFilter $filter)
     {
-        $accounts = Account::with(['user', 'games'])->paginate();
+        $accounts = Account::with(['user', 'games'])->filter($filter)->paginate();
 
         return AccountSimpleResource::collection($accounts);
     }

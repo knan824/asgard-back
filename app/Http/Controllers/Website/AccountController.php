@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Filters\Website\AccountFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Website\AccountResource;
 use App\Http\Resources\Website\AccountSimpleResource;
@@ -13,9 +14,9 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(AccountFilter $filter)
     {
-        $accounts = Account::with(['user', 'games', 'platforms'])->blocked(false)->sold(false)->hasValidUser()->paginate();
+        $accounts = Account::with(['user', 'games', 'platforms'])->blocked(false)->sold(false)->hasValidUser()->filter($filter)->paginate();
 
         return AccountSimpleResource::collection($accounts);
     }
