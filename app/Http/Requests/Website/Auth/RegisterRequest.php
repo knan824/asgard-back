@@ -39,13 +39,12 @@ class RegisterRequest extends FormRequest
             'username' => $this->username,
             'email' => $this->email,
             'password' => Hash::make($this->password),
+            'last_login_at' => now(),
         ]);
-
-        $this->session()->regenerate();
 
         return [
             'user' => $user,
-            'token' => $user->createToken('api_token')->plainTextToken,
+            'token' => $user->createToken('api_token')->accessToken,
         ];
     }
 }

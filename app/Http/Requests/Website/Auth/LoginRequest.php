@@ -24,7 +24,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'email', 'exists:users,email'],
             'password' => ['required', 'string'],
-            'remember' => ['boolean'],
+            'remember' => ['sometimes', 'boolean'],
         ];
     }
 
@@ -40,22 +40,20 @@ class LoginRequest extends FormRequest
         $credentials = $this->only('email', 'password');
 
         if (!auth()->attempt($credentials, $this->input('remember', false))) {
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ], 401);
+            abort(401, 'Invalid credentials');
         }
 
         if (auth()->user()->is_blocked) {
-            return response()->json([
-                'message' => 'Your Account is blocked. Please contact support.',
-            ], 401);
+            abort(401, 'Your Account is blocked. Please contact support.');
         }
 
-        $this->session()->regenerate();
+        auth()->user()->update([
+            'last_login_at' => now(),
+        ]);
 
         return [
             'user' => auth()->user(),
-            'token' => auth()->user()->createToken('api_token')->plainTextToken,
+            'token' => auth()->user()->createToken('api_token')->accessToken,
         ];
     }
 }
